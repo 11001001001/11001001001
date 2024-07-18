@@ -21,6 +21,7 @@ function Page3() {
 
   const intervalRef = useRef(null);
   const timeoutRef = useRef(null);
+  const ticketsTimeoutRef = useRef(null);
   const navigate = useNavigate(); // Хук для навигации
 
   const triggerHapticFeedback = () => {
