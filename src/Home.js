@@ -58,6 +58,7 @@ function Home() {
   
     // Попробуем открыть приложение Twitter
     const openTwitterApp = () => {
+      const { Telegram } = window;
       window.location.href = twitterUrl;
       Telegram.WebApp.BackButton.show();
   
