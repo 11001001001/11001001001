@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Page1.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import xGame from "./chpic.su_-_UtyaDuckFull_025-ezgif.com-gif-maker.gif"
 
 function Page1() {
   const [balance, setBalance] = useState(0);
@@ -100,7 +101,7 @@ function Page1() {
       <div className={`content ${swiped ? 'hidden' : ''}`}>
         <div className="above-text">Duck-X</div>
         <div className="video-container">
-          <img src="/chpic.su_-_UtyaDuckFull_025-ezgif.com-gif-maker.gif" className="centered-video" alt='Loading..' />
+          <img src={xGame} className="centered-video" alt='Loading..' />
         </div>
         <button className="start-button" onClick={handleStartClick}>Start</button>
       </div>
