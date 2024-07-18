@@ -75,7 +75,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Routes>
+        <Routes basename="/11001001001">
           <Route path="/" element={<Home />} />
           <Route path="/page1" element={<Page1 />} />
           <Route path="/page2" element={<Page2 />} />
