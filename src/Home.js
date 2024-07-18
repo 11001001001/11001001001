@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Home.css';
+import { useNavigate } from 'react-router-dom';
+
 
 function Home() {
   const [balance, setBalance] = useState(0);
@@ -11,6 +13,8 @@ function Home() {
   const [connected, setConnected] = useState(false);
   const getUserFirstName = window.Telegram.WebApp.initDataUnsafe.user.first_name;
   const getUserLastName = window.Telegram.WebApp.initDataUnsafe.user.last_name;
+
+  const navigate = useNavigate(); 
 
   const triggerHapticFeedback = () => {
     if (window.Telegram.WebApp) {
@@ -60,11 +64,23 @@ function Home() {
     const openTwitterApp = () => {
       const { Telegram } = window;
       window.location.href = twitterUrl;
-      Telegram.WebApp.BackButton.show();
   
       
       setTimeout(() => {
         window.location.href = webUrl;
+        if (Telegram.WebApp) {
+          Telegram.WebApp.BackButton.show();
+          Telegram.WebApp.BackButton.onClick(() => {
+            navigate('/'); 
+          });
+        }
+        return () => {
+          if (Telegram.WebApp) {
+            Telegram.WebApp.BackButton.offClick();
+            Telegram.WebApp.BackButton.hide();
+          }
+        };
+
       }, 500);
     };
   
