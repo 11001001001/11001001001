@@ -73,13 +73,13 @@ function App() {
   }
 
   return (
-    <Router>
+    <Router basename="/11001001001">
       <div className="App">
-        <Routes basename="/11001001001">
-          <Route path="/" element={<Home />} />
-          <Route path="/page1" element={<Page1 />} />
-          <Route path="/page2" element={<Page2 />} />
-          <Route path="/page3" element={<Page3 />} /> {/* Добавляем маршрут для Page3 */}
+        <Routes >
+          <Route path="/" element={<Home />} exact/>
+          <Route path="/page1" element={<Page1 />} exact />
+          <Route path="/page2" element={<Page2 />} exact/>
+          <Route path="/page3" element={<Page3 />} exact/> {/* Добавляем маршрут для Page3 */}
         </Routes>
         <nav className="nav">
           <Link to="/" className="nav-link" onClick={triggerHapticFeedback}>
