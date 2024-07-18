@@ -59,47 +59,17 @@ function Home() {
   const openTwitter = () => {
     const twitterUrl = 'twitter://user?screen_name=tap_duck_';
     const webUrl = 'https://x.com/tap_duck_';
-
-    // Сохранение текущего URL в localStorage перед переходом
-    localStorage.setItem('previousUrl', window.location.href);
-
-    // Отображение backButton
-    const { Telegram } = window;
-    if (Telegram.WebApp) {
-      Telegram.WebApp.BackButton.show();
-      Telegram.WebApp.BackButton.onClick(() => {
-        // Получение сохраненного URL из localStorage
-        const previousUrl = localStorage.getItem('previousUrl');
-        if (previousUrl) {
-          window.location.href = previousUrl;
-          Telegram.WebApp.BackButton.hide();
-        }
-      });
-    }
-
-    // Попробуем открыть приложение Twitter
+  
     const openTwitterApp = () => {
       window.location.href = twitterUrl;
-
-      // Если приложение Twitter не установлено, откроем веб-сайт через 500 мс
+  
       setTimeout(() => {
         window.location.href = webUrl;
       }, 500);
     };
-
+  
     openTwitterApp();
   };
-
-  useEffect(() => {
-    return () => {
-      // Очистка backButton при размонтировании компонента
-      const { Telegram } = window;
-      if (Telegram.WebApp) {
-        Telegram.WebApp.BackButton.offClick();
-        Telegram.WebApp.BackButton.hide();
-      }
-    };
-  }, []);
   
   const openTelegram = () => {
     window.location.href = "https://t.me/tapducker"

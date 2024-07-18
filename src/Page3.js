@@ -127,7 +127,7 @@ function Page3() {
     if (tickets === 0) {
       const calculateTimeLeft = () => {
         const now = new Date();
-        const nextReset = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+        const nextReset = new Date(now.getFullYear(), now.getMonth(), now.getDate());
         const difference = nextReset - now;
 
         let hours = Math.floor(difference / (1000 * 60 * 60));
@@ -141,9 +141,7 @@ function Page3() {
       const timeInterval = setInterval(calculateTimeLeft, 1000);
 
       return () => clearInterval(timeInterval);
-    } else {
-      
-    }
+    } 
   }, [tickets]);
 
   const handle10 = (cef) => {
