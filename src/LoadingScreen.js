@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import './LoadingScreen.css';
+import loadingEgg from "./chpic.su_-_UtyaDuckFull_042-ezgif.com-gif-maker.gif"
+
 
 const LoadingScreen = ({ onEnd }) => {
   useEffect(() => {
@@ -9,7 +11,7 @@ const LoadingScreen = ({ onEnd }) => {
 
   return (
     <div className="loading-screen">
-        <img src="/chpic.su_-_UtyaDuckFull_042-ezgif.com-gif-maker.gif" className="centered-video" alt='Loading..' />
+        <img src={loadingEgg} className="centered-video" alt='Loading..' />
     </div>
   );
 };

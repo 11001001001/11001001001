@@ -2,12 +2,13 @@ import React from 'react';
 import './Page2.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
+import friendsImage from "./chpic.su_-_UtyaDuckFull_027-ezgif.com-gif-maker.gif"
 
 function Page2() {
   return (
     <div className="page2">
       <div className="video-container">
-      <img src="/chpic.su_-_UtyaDuckFull_027-ezgif.com-gif-maker.gif" className="centered-video" alt='Loading..' />
+      <img src={friendsImage} className="centered-video" alt='Loading..' />
 
         </div>
 

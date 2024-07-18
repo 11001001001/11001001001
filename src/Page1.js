@@ -4,6 +4,7 @@ import './Page1.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import xGame from "./chpic.su_-_UtyaDuckFull_025-ezgif.com-gif-maker.gif"
+import comingGame from "./chpic.su_-_UtyaDuckFull_002-ezgif.com-gif-maker.gif"
 
 function Page1() {
   const [balance, setBalance] = useState(0);
@@ -108,7 +109,7 @@ function Page1() {
       <div className={`swipe-content ${swiped ? '' : 'hidden'}`}>
         <div className="above-text">Duck theft</div>
         <div className="video-container">
-        <img src="/chpic.su_-_UtyaDuckFull_002-ezgif.com-gif-maker.gif" className="centered-video" alt='Loading..' />
+        <img src={comingGame} className="centered-video" alt='Loading..' />
         </div>
         <button className="start-button coming-soon-button" disabled>Coming soon</button>
       </div>
