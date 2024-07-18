@@ -127,9 +127,8 @@ function Page3() {
     if (tickets === 0) {
       const calculateTimeLeft = () => {
         const now = new Date();
-        const nextReset = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        const difference = nextReset - now;
-
+        const nextReset = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+        const difference = 0
         let hours = Math.floor(difference / (1000 * 60 * 60));
         let minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((difference % (1000 * 60)) / 1000);

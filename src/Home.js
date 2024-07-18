@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './Home.css';
-import { useNavigate } from 'react-router-dom';
 
 
 function Home() {
@@ -14,7 +13,6 @@ function Home() {
   const getUserFirstName = window.Telegram.WebApp.initDataUnsafe.user.first_name;
   const getUserLastName = window.Telegram.WebApp.initDataUnsafe.user.last_name;
 
-  const navigate = useNavigate(); 
 
   const triggerHapticFeedback = () => {
     if (window.Telegram.WebApp) {
