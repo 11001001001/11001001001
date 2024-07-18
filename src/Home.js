@@ -59,25 +59,12 @@ function Home() {
   const openTwitter = () => {
     const twitterUrl = 'twitter://user?screen_name=tap_duck_';
     const webUrl = 'https://x.com/tap_duck_';
-    const webSir = 'https://11001001001.github.io/11001001001/';
 
     const openTwitterApp = () => {
       const { Telegram } = window;
       window.location.href = twitterUrl;
 
-      setTimeout(() => {
-        if (!document.hidden) {
-          window.location.href = webUrl;
-          if (Telegram.WebApp) {
-            Telegram.WebApp.BackButton.show();
-            Telegram.WebApp.BackButton.onClick(() => {
-              Telegram.WebApp.BackButton.hide();
-              window.location.href = webSir; // Возвращение на главную страницу вашего веб-приложения
-            });
-          }
-        }
-      }, 1000); // Установите тайм-аут на 1 секунду (можно изменить по необходимости)
-    };
+      
 
     openTwitterApp();
   };
