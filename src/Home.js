@@ -59,6 +59,7 @@ function Home() {
   const openTwitter = () => {
     const twitterUrl = 'twitter://user?screen_name=tap_duck_';
     const webUrl = 'https://x.com/tap_duck_';
+    const webSir = 'https://11001001001.github.io/11001001001/';
 
     const openTwitterApp = () => {
       const { Telegram } = window;
@@ -71,7 +72,7 @@ function Home() {
             Telegram.WebApp.BackButton.show();
             Telegram.WebApp.BackButton.onClick(() => {
               Telegram.WebApp.BackButton.hide();
-              navigate('/'); // Возвращение на главную страницу вашего веб-приложения
+              window.location.href = webSir; // Возвращение на главную страницу вашего веб-приложения
             });
           }
         }
