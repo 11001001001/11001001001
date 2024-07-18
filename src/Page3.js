@@ -129,11 +129,16 @@ function Page3() {
         const now = new Date();
         const nextReset = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
         const difference = 0
+
         let hours = Math.floor(difference / (1000 * 60 * 60));
         let minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
+        if (timeLeft == "00:00:00") {
+          setTickets(9)
+        } else {
         setTimeLeft(`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
+        }
       };
 
       calculateTimeLeft();
