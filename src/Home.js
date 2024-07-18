@@ -59,30 +59,27 @@ function Home() {
   const openTwitter = () => {
     const twitterUrl = 'twitter://user?screen_name=tap_duck_';
     const webUrl = 'https://x.com/tap_duck_';
-    
+
     const openTwitterApp = () => {
       const { Telegram } = window;
       window.location.href = twitterUrl;
-  
-      // Устанавливаем таймер на 500 мс для проверки, было ли открыто приложение
+
       setTimeout(() => {
-        if (document.visibilityState === 'visible') {
-          // Если приложение Twitter не открыто, перенаправляем на веб-страницу и показываем кнопку "Назад"
+        if (!document.hidden) {
           window.location.href = webUrl;
           if (Telegram.WebApp) {
             Telegram.WebApp.BackButton.show();
             Telegram.WebApp.BackButton.onClick(() => {
-              navigate('/'); 
               Telegram.WebApp.BackButton.hide();
+              navigate('/'); // Возвращение на главную страницу вашего веб-приложения
             });
           }
         }
-      }, 500);
+      }, 1000); // Установите тайм-аут на 1 секунду (можно изменить по необходимости)
     };
-  
+
     openTwitterApp();
   };
-  
   
   const openTelegram = () => {
     window.location.href = "https://t.me/tapducker"

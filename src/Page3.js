@@ -141,6 +141,8 @@ function Page3() {
       const timeInterval = setInterval(calculateTimeLeft, 1000);
 
       return () => clearInterval(timeInterval);
+    } else {
+      
     }
   }, [tickets]);
 
