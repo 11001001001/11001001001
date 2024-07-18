@@ -51,7 +51,28 @@ function Home() {
       console.log("Connection denied");
     }
   }
+
+  const openTwitter = () => {
+    const twitterUrl = 'twitter://user?screen_name=tap_duck_';
+    const webUrl = 'https://x.com/tap_duck_';
   
+    // Попробуем открыть приложение Twitter
+    const openTwitterApp = () => {
+      window.location.href = twitterUrl;
+  
+      // Если приложение Twitter не установлено, откроем веб-сайт через 500 мс
+      setTimeout(() => {
+        window.location.href = webUrl;
+      }, 500);
+    };
+  
+    openTwitterApp();
+  };
+  
+  const openTelegram = () => {
+    window.location.href = "https://t.me/tapducker"
+    
+  }
 
 
   const walletHandler = () => {
@@ -69,7 +90,7 @@ function Home() {
           console.error('Failed to get initial data from cloud storage:', error);
         } else {
           const initialBalance = result.balance ? parseInt(result.balance, 10) : 0;
-          const savedEndTime = result.endTime ? new Date() : null;
+          const savedEndTime = result.endTime ? new Date(result.endTime) : null;
           const initialTimer = savedEndTime ? Math.max((savedEndTime - new Date()) / 1000, 0) : 0;
           const initialConnected = result.connected === 'true';
 
@@ -119,14 +140,14 @@ function Home() {
 
   const startScrolling = () => {
     setIsScrolling(true);
-    const endTime = new Date(Date.now() + 1000); // 4 hours from now
+    const endTime = new Date(Date.now() + 14400 * 1000); // 4 hours from now
     window.Telegram.WebApp.CloudStorage.setItem('endTime', endTime.toISOString(), (error) => {
       if (error) {
         console.error('Failed to set endTime in cloud storage:', error);
       }
     });
 
-    setTimer(1); // 4 hours in seconds
+    setTimer(14400); // 4 hours in seconds
     let randomNum = Math.floor(Math.random() * 901) + 100;
 
     setDisplayText(randomNum.toString());
@@ -209,11 +230,11 @@ function Home() {
         </div>
       )}
       <div className="footer">
-        <button className="footer-button">
+        <button className="footer-button" onClick={openTwitter}>
           <img src="https://seeklogo.com/images/T/telegram-logo-D185476A96-seeklogo.com.png" alt="Telegram Icon" />
           Telegram
         </button>
-        <button className="footer-button">
+        <button className="footer-button" onClick={openTelegram}>
           <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png" alt="Bonus Icon" />
           Twitter
         </button>
