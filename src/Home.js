@@ -59,8 +59,9 @@ function Home() {
     // Попробуем открыть приложение Twitter
     const openTwitterApp = () => {
       window.location.href = twitterUrl;
+      Telegram.WebApp.BackButton.show();
   
-      // Если приложение Twitter не установлено, откроем веб-сайт через 500 мс
+      
       setTimeout(() => {
         window.location.href = webUrl;
       }, 500);
@@ -230,11 +231,11 @@ function Home() {
         </div>
       )}
       <div className="footer">
-        <button className="footer-button" onClick={openTwitter}>
+        <button className="footer-button" onClick={openTelegram}>
           <img src="https://seeklogo.com/images/T/telegram-logo-D185476A96-seeklogo.com.png" alt="Telegram Icon" />
           Telegram
         </button>
-        <button className="footer-button" onClick={openTelegram}>
+        <button className="footer-button" onClick={openTwitter}>
           <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png" alt="Bonus Icon" />
           Twitter
         </button>
