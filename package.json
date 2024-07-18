@@ -1,14 +1,24 @@
 {
-  "name": "duck",
+  "name": "monofactur",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.5.2",
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@twa-dev/mark42": "^0.0.38",
+    "@twa-dev/sdk": "^7.0.0",
+    "buffer": "^6.0.3",
+    "canvas-confetti": "^1.9.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-router-dom": "^6.24.1",
     "react-scripts": "5.0.1",
+    "ton": "^13.9.0",
+    "tonweb": "^0.0.66",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -34,5 +44,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^6.1.1",
+    "react-app-rewired": "^2.2.1"
   }
 }

@@ -1,10 +1,28 @@
+html, body {
+  overflow: hidden; /* Отключение прокрутки */
+  user-select: none; /* Отключение выделения текста */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  touch-action: none; /* Отключение длительного нажатия на телефоне */
+  -webkit-touch-callout: none; /* Отключение длительного нажатия на телефоне для Safari */
+}
+
 .App {
   text-align: center;
+  padding-bottom: 60px; /* чтобы контент не перекрывался навигацией */
 }
 
 .App-logo {
   height: 40vmin;
-  pointer-events: none;
+  pointer-events: none; /* Отключение копирования текста */
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -21,7 +39,6 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-link {
@@ -35,4 +52,15 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Добавляем стили для темного и светлого режима */
+.dark-mode {
+  background-color: black;
+  color: white;
+}
+
+.light-mode {
+  background-color: white;
+  color: black;
 }

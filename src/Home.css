@@ -1,0 +1,262 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Bowlby+One&display=swap'); 
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;700&display=swap');
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; /* Убираем прокрутку */
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Распределяем пространство между элементами */
+  height: 100vh; /* Высота экрана */
+  text-align: center;
+  color: inherit; /* Используем текущий цвет текста */
+  padding-bottom: 80px; /* Добавляем отступ снизу */
+}
+
+.header {
+  width: 100%;
+  height: 120px;
+  background-color: hwb(280 8% 91% / 0.76);
+  border-bottom-left-radius: 50% 20%;
+  border-bottom-right-radius: 50% 20%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Добавлено для анимации фона */
+}
+
+@keyframes moveBackground {
+  0% { background-position: 0 0; }
+  100% { background-position: -1000px -1000px; }
+}
+
+.stars {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: url('https://www.transparenttextures.com/patterns/stardust.png') repeat; /* Используем текстуру звезд */
+  animation: moveBackground 20s linear infinite; /* Анимация перемещения фона */
+}
+
+.toggle-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1; /* Поверх анимации */
+}
+
+.toggle-button img {
+  width: 25px;
+  height: 25px;
+}
+
+.nickname-container {
+  display: flex;
+  align-items: center; 
+  margin-left: -20px; /* Сдвигаем левее */
+  z-index: 1; /* Поверх анимации */
+}
+
+.nickname-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.nickname {
+  font-size: 1.2em;
+  color: white; 
+}
+
+.balance-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  margin-left: 0px; /* Сдвигаем левее */
+  flex-direction: column; /* Вертикальное выравнивание элементов */ 
+}
+
+.balance-icon {
+  width: 30px;
+  height: 30px;
+  margin-bottom: 1px;
+}
+
+.balance {
+  font-size: 3em; /* Увеличим размер текста баланса */ 
+  font-family: "Chakra Petch", sans-serif;
+  font-weight: 700;
+  font-style: normal; 
+
+}
+
+.random-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1; /* Растягиваем контейнер */
+  margin-top: 30px;
+  text-align: center;
+  position: relative; 
+}
+
+.random-title {
+  font-size: 1.6em;
+  color: hsl(0, 0%, 100%);
+  position: relative;
+  z-index: 1; 
+  font-family: "Audiowide", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.random-title.refilled {
+  color: hsl(65, 100%, 50%); 
+  font-family: "Comfortaa", sans-serif;
+  font-weight: 400;
+  text-align: center;
+}
+
+.random-title.wait {
+  color: hsla(0, 0%, 100%, 0.168); 
+  font-family: "Audiowide", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.random-button {
+  margin-top: 40px; /* Увеличим отступ сверху, чтобы кнопка была ниже */
+  margin-bottom: 20px;
+  padding: 10px 50px;
+  font-size: 1em;
+  color: white;
+  background-color: #282c34;
+  border: 2px solid #ffffff17;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  display: inline-flex; /* Исправлено */
+  align-items: center;
+  justify-content: center; 
+  font-family: "Comfortaa", sans-serif;
+  font-weight: 400;
+  text-align: center;
+}
+
+.random-button img.button-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.random-button:hover {
+  background-color: #00ffff;
+  color: #282c34;
+}
+
+.random-button:disabled {
+  background-color: hsla(0, 0%, 33%, 0);
+  cursor: not-allowed;
+}
+
+.settings-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1; /* Поверх анимации */
+}
+
+.settings-button img {
+  width: 25px;
+  height: 25px;
+}
+
+.animation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2em;
+  font-family: "Audiowide", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: green;
+  animation: flyUp 2s ease-out forwards; /* Увеличим длительность анимации */
+}
+
+@keyframes flyUp {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -150%) scale(2);
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 50px;
+  margin-bottom: 100px; /* Увеличиваем отступ снизу */
+  align-items: center; /* Добавляем выравнивание по центру */
+}
+
+.footer-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 0.7em;
+  font-family: "Comfortaa", sans-serif;
+  font-weight: 400;
+  text-align: center;
+  display: flex;
+  flex-direction: column; /* Располагаем иконку над текстом */
+  align-items: center; 
+}
+
+.footer-button img {
+  width: 20px; /* Размер иконки */
+  height: 20px;
+  margin-bottom: 5px; /* Отступ между иконкой и текстом */
+}
+
+
+
+.gif-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.gif {
+  width: 300px; /* Размер вашей гифки */
+  height: 150px;
+  animation: fadeInOut 2s linear infinite; /* Анимация плавного появления и исчезания */
+}
+
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}

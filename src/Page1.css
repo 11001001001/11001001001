@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
+
+.page1 {
+  position: relative;
+  padding: 20px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: rgb(26, 24, 28);
+  overflow: hidden; /* Убираем прокрутку */
+  transition: transform 0.5s ease-in-out; /* Добавляем анимацию свайпа */
+}
+
+.page1.swiped .content {
+  transform: translateX(-100%); /* Сдвигаем контент на всю ширину экрана при свайпе */
+  transition: transform 0.5s ease-in-out;
+}
+
+.page1.swiped .swipe-content {
+  transform: translateX(-100%); /* Сдвигаем контент на всю ширину экрана при свайпе */
+  transition: transform 0.5s ease-in-out;
+}
+
+.swipe-content {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  transition: transform 0.5s ease-in-out;
+}
+
+.icon-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0; /* Начальное состояние: невидимый */
+  transform: translateX(-100px); /* Начальное положение: за границей слева */
+  transition: transform 0.4s ease-out, opacity 0.4s ease-out; /* Уменьшаем время анимации до 0.4 секунд */
+}
+
+.icon-button.slide-in {
+  opacity: 1; /* Делаем видимым */
+  transform: translateX(0); /* Перемещаем в конечное положение */
+}
+
+.icon-button img {
+  width: 30px;
+  height: 30px;
+}
+
+.balance-display {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 1.2em;
+  opacity: 0; /* Начальное состояние: невидимый */
+  transform: translateX(100px); /* Начальное положение: за границей справа */
+  transition: transform 0.4s ease-out, opacity 0.4s ease-out; /* Уменьшаем время анимации до 0.4 секунд */
+}
+
+.balance-display.slide-in-right {
+  opacity: 1; /* Делаем видимым */
+  transform: translateX(0); /* Перемещаем в конечное положение */
+}
+
+.balance-display img {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  transition: transform 0.5s ease-in-out; /* Добавляем анимацию свайпа */
+}
+
+.above-text {
+  font-size: 3.5em;
+  margin-bottom: 10px;
+  margin-top: 60px; /* Поднимаем текст выше */
+  font-family: "Comfortaa", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.video-container {
+  display: flex;
+  justify-content: center;
+}
+
+.centered-video {
+  width: 200px;
+  height: auto;
+}
+
+.start-button {
+  padding: 10px 80px;
+  font-size: 1em;
+  color: white;
+  background-color: rgb(26, 24, 28);
+  border: 2px solid rgb(33, 31, 39);
+  border-color: hwb(180 0% 0% / 0.588);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  margin-bottom: 150px;
+  position: relative;
+  transform: translateY(100px); /* Начальная позиция за нижним меню */
+  opacity: 0; /* Начальное состояние: невидимый */
+  animation: slide-up 0.2s forwards 0.2s; /* Анимация подъема с задержкой 0.5 секунд */
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(100px); /* Начальная позиция */
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0); /* Конечная позиция */
+    opacity: 1;
+  }
+}
+
+.start-button::before {
+  content: '';
+  position: absolute;
+  border-radius: 20px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('https://24tv.ua/resources/photos/news/202206/2041219.jpg?v=1661253043000') center/cover no-repeat;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.start-button:hover {
+  background-color: #00ffff;
+  color: #282c34;
+}
+
+.coming-soon-button::before {
+  background: url('https://img.freepik.com/free-vector/gradient-black-background-with-cubes_23-2149197762.jpg') center/cover no-repeat;
+}
+
+.coming-soon-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.arrow-icon {
+  position: fixed;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer; 
+  color: #ffffff31;
+  font-size: 2em; /* Увеличиваем размер иконки */
+}
+
+.page1.swiped .arrow-icon {
+  right: auto;
+  left: 10px;
+  transform: translateY(-50%); /* Поворачиваем стрелку на 180 градусов */
+}

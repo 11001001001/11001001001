@@ -1,0 +1,238 @@
+.page2 {
+    position: relative;
+    padding: 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    background-color: rgb(26, 24, 28);
+  }
+  
+  .video-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .centered-video {
+    width: 100px;
+    height: auto;
+    margin-top: 20px;
+  }
+  
+  .welcome-text, .bonus-text {
+    opacity: 0;
+    transform: translateX(-100%);
+    animation: slide-in 0.4s forwards;
+  }
+  
+  .welcome-text {
+    margin-top: 20px;
+    font-size: 1.5em;
+    font-family: "Comfortaa", sans-serif;
+    font-weight: 700;
+    animation-delay: 0.25s;
+  }
+  
+  .bonus-text {
+    margin-top: 10px;
+    font-size: 1em;
+    font-family: "Comfortaa", sans-serif;
+    font-weight: 400;
+    text-align: center;
+    animation-delay: 0.4s;
+  }
+  
+  .friend-section {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 10px;
+  }
+  
+  .friend-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+    opacity: 0;
+    animation: slide-in 0.5s forwards;
+  }
+  
+  .friend-container:first-child {
+    transform: translateX(-100%);
+    animation-delay: 0.75s;
+  }
+  
+  .friend-container.premium {
+    justify-content: flex-end;
+    transform: translateX(100%);
+    animation-delay: 1s;
+  }
+  
+  .friend-icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .friend-text {
+    margin-left: 10px;
+    font-size: 0.8em;
+    font-family: "Comfortaa", sans-serif;
+    font-weight: 400;
+  }
+  
+  .friend-bonus {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    color: hsl(54, 100%, 50%);
+  }
+  
+  .small-icon {
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+  }
+  
+  .centered-content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 40px;
+    height: 100%;
+  }
+  
+  .centered-number {
+    font-size: 2em;
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .number-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 150px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 270px;
+    padding: 5px 10px;
+    font-size: 1em;
+    color: white;
+    background-color: #282c34;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .number-button:hover {
+    background-color: #00ffff;
+    color: #282c34;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+    position: absolute;
+    bottom: 20px;
+  }
+  
+  .invite-button {
+    padding: 10px 20px;
+    font-size: 1em;
+    font-family: "Comfortaa", sans-serif;
+    font-weight: 700;
+    color: white;
+    background-color: #282c34;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-right: 10px;
+  }
+  
+  .invite-button:hover {
+    background-color: #00ffff;
+    color: #282c34;
+  }
+  
+  .copy-button {
+    padding: 10px 20px;
+    font-size: 1em;
+    font-family: "Comfortaa", sans-serif;
+    font-weight: 700;
+    color: white;
+    background-color: #282c34;
+    margin-bottom: 130px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .copy-button:hover {
+    background-color: #00ffff;
+    color: #282c34;
+  }
+  
+  @keyframes slide-in {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  /* Адаптация для небольших экранов */
+  @media (max-width: 768px) {
+    .centered-video {
+      width: 80px;
+    }
+  
+    .welcome-text {
+      font-size: 1.2em;
+    }
+  
+    .bonus-text {
+      font-size: 0.9em;
+    }
+  
+    .friend-container {
+      margin-top: 15px;
+    }
+  
+    .friend-icon {
+      width: 18px;
+      height: 18px;
+      margin-left: 10px;
+      margin-bottom: 5px;
+    }
+  
+    .friend-text {
+      font-size: 0.9em;
+    }
+  
+    .small-icon {
+      width: 15px;
+      height: 15px;
+    }
+  
+    .centered-number {
+      font-size: 3.0em;
+      margin-top: 30px;
+    }
+  
+    .invite-button {
+      padding: 8px 16px;
+      margin-bottom: 130px;
+    }
+  }
+  
