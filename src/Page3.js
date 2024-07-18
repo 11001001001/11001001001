@@ -127,25 +127,42 @@ function Page3() {
     if (tickets === 0) {
       const calculateTimeLeft = () => {
         const now = new Date();
-        const nextReset = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
-        const difference = 0
+        const nextReset = new Date(now.getTime() + 4 * 60 * 60 * 1000);
+        const difference = nextReset - now;
 
         let hours = Math.floor(difference / (1000 * 60 * 60));
         let minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-        if (timeLeft == "00:00:00") {
-          setTickets(9)
-        } else {
         setTimeLeft(`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
+
+        if (difference <= 0) {
+          clearInterval(intervalRef.current);
+          setTickets(9);
+          window.Telegram.WebApp.CloudStorage.setItem('tickets', '9', (error) => {
+            if (error) {
+              console.error('Failed to update tickets in cloud storage:', error);
+            }
+          });
         }
       };
 
-      calculateTimeLeft();
-      const timeInterval = setInterval(calculateTimeLeft, 1000);
+      intervalRef.current = setInterval(calculateTimeLeft, 1000);
+      ticketsTimeoutRef.current = setTimeout(() => {
+        clearInterval(intervalRef.current);
+        setTickets(9);
+        window.Telegram.WebApp.CloudStorage.setItem('tickets', '9', (error) => {
+          if (error) {
+            console.error('Failed to update tickets in cloud storage:', error);
+          }
+        });
+      }, 4 * 60 * 60 * 1000);
 
-      return () => clearInterval(timeInterval);
-    } 
+      return () => {
+        clearInterval(intervalRef.current);
+        clearTimeout(ticketsTimeoutRef.current);
+      };
+    }
   }, [tickets]);
 
   const handle10 = (cef) => {
