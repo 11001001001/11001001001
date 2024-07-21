@@ -10,6 +10,8 @@ import './Navigation.css';
 function App() {
   const [pageLoaded, setPageLoaded] = useState(null);
   const [notTime, setNotTime] = useState(null);
+  window.Telegram.WebApp.expand();
+
 
 
   window.Telegram.WebApp.setHeaderColor('#282c34');
@@ -24,10 +26,11 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    window.Telegram.WebApp.ready();
-    window.Telegram.WebApp.expand();
+   useEffect(() => {
+
+    
     const platform = navigator.platform.toLowerCase();
+
     const fetchInternetTime = async () => {
       try {
         const response = await fetch('https://worldtimeapi.org/api/timezone/Etc/UTC');
@@ -35,8 +38,8 @@ function App() {
         const internetUnixTime = data.unixtime;
         const localUnixTime = Math.floor(Date.now() / 1000); 
 
-        // Устанавливаем допустимое отклонение времени (например, 100 секунд)
-        const allowedOffset = 100; // 100 секунд
+        // Setting the allowed time offset (e.g., 100 seconds)
+        const allowedOffset = 100; // 100 seconds
         const timeDifference = Math.abs(localUnixTime - internetUnixTime);
 
         if (platform.includes("win") || platform.includes("mac")) {

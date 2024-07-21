@@ -15,13 +15,11 @@ function Page3() {
   const [result, setResult] = useState(null);
   const [showConfetti, setShowConfetti] = useState(false);
   const [animateInput, setAnimateInput] = useState(false);
-  const [animateValue, setAnimateValue] = useState(false);
   const [loading, setLoading] = useState(true);
   const [timeLeft, setTimeLeft] = useState('');
 
   const intervalRef = useRef(null);
   const timeoutRef = useRef(null);
-  const ticketsTimeoutRef = useRef(null);
   const navigate = useNavigate(); // Хук для навигации
 
   const triggerHapticFeedback = () => {
@@ -54,7 +52,7 @@ function Page3() {
     if (Telegram.WebApp) {
       Telegram.WebApp.BackButton.show();
       Telegram.WebApp.BackButton.onClick(() => {
-        navigate('/page1'); 
+        navigate('/page1'); // Переход на Page1 при нажатии на кнопку назад
       });
     }
 
@@ -81,7 +79,6 @@ function Page3() {
 
   useEffect(() => {
     setAnimateInput(true);
-    setAnimateValue(true);
   }, []);
 
   useEffect(() => {
@@ -128,7 +125,7 @@ function Page3() {
     if (tickets === 0) {
       const calculateTimeLeft = () => {
         const now = new Date();
-        const nextReset = new Date(now.getTime() + 4 * 60 * 60 * 1000);
+        const nextReset = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
         const difference = nextReset - now;
 
         let hours = Math.floor(difference / (1000 * 60 * 60));
@@ -136,33 +133,23 @@ function Page3() {
         let seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
         setTimeLeft(`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
-
+        
         if (difference <= 0) {
-          clearInterval(intervalRef.current);
           setTickets(9);
-          window.Telegram.WebApp.CloudStorage.setItem('tickets', '9', (error) => {
+          window.Telegram.WebApp.CloudStorage.setItem('tickets', '9', (error, success) => {
             if (error) {
               console.error('Failed to update tickets in cloud storage:', error);
+            } else {
+              console.log('Tickets reset successfully in cloud storage:', success);
             }
           });
         }
       };
 
-      intervalRef.current = setInterval(calculateTimeLeft, 1000);
-      ticketsTimeoutRef.current = setTimeout(() => {
-        clearInterval(intervalRef.current);
-        setTickets(9);
-        window.Telegram.WebApp.CloudStorage.setItem('tickets', '9', (error) => {
-          if (error) {
-            console.error('Failed to update tickets in cloud storage:', error);
-          }
-        });
-      }, 4 * 60 * 60 * 1000);
+      calculateTimeLeft();
+      const timeInterval = setInterval(calculateTimeLeft, 1000);
 
-      return () => {
-        clearInterval(intervalRef.current);
-        clearTimeout(ticketsTimeoutRef.current);
-      };
+      return () => clearInterval(timeInterval);
     }
   }, [tickets]);
 
@@ -305,7 +292,7 @@ function Page3() {
         <img src="https://kairosrainbow.it/wp-content/uploads/2016/11/coins.png" alt="Balance Icon" className="balance-icon" />
         {balance.toLocaleString()}
       </div>
-      <div className={`value-display ${animateValue ? 'slide-in-value' : ''}`}>
+      <div className={`value-display ${!loading ? 'slide-in-value' : ''}`}>
         {gameOver ? <span style={{ color: 'red' }}>You lose</span> : `x ${value.toFixed(2)}`}
       </div>
       <button
