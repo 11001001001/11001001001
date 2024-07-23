@@ -17,6 +17,7 @@ function Page3() {
   const [animateInput, setAnimateInput] = useState(false);
   const [loading, setLoading] = useState(true);
   const [timeLeft, setTimeLeft] = useState('');
+  const [resetTime, setResetTime] = useState(0); 
 
   const intervalRef = useRef(null);
   const timeoutRef = useRef(null);
@@ -82,21 +83,21 @@ function Page3() {
   }, []);
 
   useEffect(() => {
-    
-
     const getTicketsFromCloud = () => {
-      window.Telegram.WebApp.CloudStorage.getItem('tickets', (error, value) => {
+      window.Telegram.WebApp.CloudStorage.getItems(['tickets', 'resetTime'], (error, values) => {
         if (error) {
-          console.error('Failed to get tickets from cloud storage:', error);
+          console.error('Failed to get items from cloud storage:', error);
         } else {
-          const savedTickets = value ? parseInt(value, 10) : 9;
+          const savedTickets = values.tickets ? parseInt(values.tickets, 10) : 9;
           setTickets(savedTickets);
+
+          const savedResetTime = values.resetTime ;
+          setResetTime(savedResetTime);
         }
       });
     };
 
     getTicketsFromCloud();
-
   }, []);
 
   useEffect(() => {
@@ -122,36 +123,41 @@ function Page3() {
   }, []);
 
   useEffect(() => {
-    if (tickets === 0) {
-      const calculateTimeLeft = () => {
-        const now = new Date();
-        const nextReset = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
-        const difference = nextReset - now;
+    const calculateTimeLeft = () => {
+      const now = Date.now();
+      const difference = resetTime - now;
 
+      if (difference <= 0) {
+        setTickets(9);
+        const newResetTime = Date.now() + 8 * 60 * 60 * 1000;
+        setResetTime(newResetTime);
+
+        window.Telegram.WebApp.CloudStorage.setItem('tickets', '9', (error) => {
+          if (error) {
+            console.error('Failed to update tickets in cloud storage:', error);
+          }
+        });
+
+        window.Telegram.WebApp.CloudStorage.setItem('resetTime', newResetTime.toString(), (error) => {
+          if (error) {
+            console.error('Failed to update reset time in cloud storage:', error);
+          }
+        });
+      } else {
         let hours = Math.floor(difference / (1000 * 60 * 60));
         let minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
         setTimeLeft(`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
-        
-        if (difference <= 0) {
-          setTickets(9);
-          window.Telegram.WebApp.CloudStorage.setItem('tickets', '9', (error, success) => {
-            if (error) {
-              console.error('Failed to update tickets in cloud storage:', error);
-            } else {
-              console.log('Tickets reset successfully in cloud storage:', success);
-            }
-          });
-        }
-      };
+      }
+    };
 
-      calculateTimeLeft();
-      const timeInterval = setInterval(calculateTimeLeft, 1000);
+    const timeInterval = setInterval(calculateTimeLeft, 1000);
 
-      return () => clearInterval(timeInterval);
-    }
-  }, [tickets]);
+    return () => clearInterval(timeInterval);
+  }, [resetTime]);
+
+
 
   const handle10 = (cef) => {
     const betValue = Math.floor(balance * cef);

@@ -46,6 +46,8 @@
   opacity: 0; /* Начальное состояние: невидимый */
   transform: translateX(-100px); /* Начальное положение: за границей слева */
   transition: transform 0.4s ease-out, opacity 0.4s ease-out; /* Уменьшаем время анимации до 0.4 секунд */
+  z-index: 1000;
+
 }
 
 .icon-button.slide-in {
@@ -180,4 +182,171 @@
   right: auto;
   left: 10px;
   transform: translateY(-50%); /* Поворачиваем стрелку на 180 градусов */
+}
+
+.popupPage1 {
+  position: fixed;
+  bottom: -100%;
+  left: 0;
+  width: 100%;
+  height: 79%;
+  border-radius: 40px;
+  background-color: #16181c;
+  box-shadow: 0 -4px 10px rgb(255, 255, 255);
+  transition: bottom 0.3s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow: hidden; /* Чтобы псевдоэлемент не выходил за границы родителя */
+}
+
+.popupPage1::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://i.ibb.co/ftcq6RD/IMG-1589.webp');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover; /* или 'contain', в зависимости от нужного результата */
+  opacity: 0.10; /* 20% прозрачности */
+  z-index: -1; /* Помещает фон позади содержимого элемента */
+  border-radius: 12px; /* Сохраняет радиус границы */
+}
+.popupPage2 {
+  position: fixed;
+  bottom: -100%;
+  left: 0;
+  width: 100%;
+  height: 79%;
+  border-radius: 40px;
+  background-color: #16181c;
+  box-shadow: 0 -4px 10px rgb(255, 255, 255);
+  transition: bottom 0.3s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow: hidden; /* Чтобы псевдоэлемент не выходил за границы родителя */
+}
+
+.popupPage2::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://i.ibb.co/tKRVdNS/photo-output.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover; /* или 'contain', в зависимости от нужного результата */
+  opacity: 0.10; /* 20% прозрачности */
+  z-index: -1; /* Помещает фон позади содержимого элемента */
+  border-radius: 12px; /* Сохраняет радиус границы */
+}
+
+
+
+.popupPage1.visible, .popupPage2.visible {
+  bottom: 0;
+}
+
+.popup-content-game1 {
+  text-align: center;
+  width: 90%;
+}
+.popup-content-game2 {
+  text-align: center;
+  width: 90%;
+}
+
+.close-button-game1 {
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  background: none;
+  border: none;
+  color: #ffffff; /* Голубой цвет в стиле Telegram */
+  font-size: 17px;
+  cursor: pointer;
+}
+.close-button-game2 {
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  background: none;
+  border: none;
+  color: #ffffff; /* Голубой цвет в стиле Telegram */
+  font-size: 17px;
+  cursor: pointer;
+}
+.cc1 {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: none;
+  border: none;
+  color: #ffffff; /* Голубой цвет в стиле Telegram */
+  font-size: 22px;
+  cursor: pointer;
+}
+.cc2 {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: none;
+  border: none;
+  color: #ffffff; /* Голубой цвет в стиле Telegram */
+  font-size: 22px;
+  cursor: pointer;
+}
+
+
+
+
+.rules-game1 {
+  color: rgb(255, 255, 255);
+  margin-left: 8px;
+
+}
+
+.rules-game1 h3 {
+  margin: 20px 0 10px 0;
+  text-align: left;
+  font-size: 24px;
+}
+
+.rules-game1 ul {
+  list-style-type: none;
+  text-align: left;
+  padding: 0;
+}
+
+.rules-game1 ul li {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.rules-game2 {
+  margin-left: 8px;
+  color: grey;
+}
+
+.rules-game2 h3 {
+  margin: 20px 0 10px 0;
+}
+
+.rules-game2 ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.rules-game2 ul li {
+  margin: 5px 0;
 }

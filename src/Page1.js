@@ -11,6 +11,11 @@ function Page1() {
   const [iconVisible, setIconVisible] = useState(false);
   const [balanceIconVisible, setBalanceIconVisible] = useState(false);
   const [swiped, setSwiped] = useState(false);
+  const [popupPage1, setPopupPage1] = useState(false);
+  const [popupPage2, setPopupPage2] = useState(false);
+
+
+  
 
   const navigate = useNavigate();
 
@@ -43,9 +48,18 @@ function Page1() {
     setBalanceIconVisible(true);
   }, []);
 
+  const togglePopup = () => {
+    triggerHapticFeedback();
+    setPopupPage1(!popupPage1);
+  };
+  const togglePopup2 = () => {
+    triggerHapticFeedback();
+    setPopupPage2(!popupPage2);
+  };
+
   const handleStartClick = () => {
     triggerHapticFeedback();
-    navigate('/page3'); // Переход на страницу Page3 при нажатии на кнопку Start
+    navigate('/page3'); 
   };
 
   const handleSwipeClick = () => {
@@ -53,48 +67,64 @@ function Page1() {
     setSwiped(!swiped);
   };
 
-  useEffect(() => {
-    let touchStartX = 0;
-    let touchEndX = 0;
 
-    const handleTouchStart = (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-    };
-
-    const handleTouchMove = (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-    };
-
-    const handleTouchEnd = () => {
-      if (touchStartX - touchEndX > 50) {
-        // Свайп влево
-        setSwiped(true);
-        triggerHapticFeedback();
-      }
-
-      if (touchEndX - touchStartX > 50) {
-        // Свайп вправо
-        setSwiped(false);
-        triggerHapticFeedback();
-      }
-    };
-
-    document.addEventListener('touchstart', handleTouchStart);
-    document.addEventListener('touchmove', handleTouchMove);
-    document.addEventListener('touchend', handleTouchEnd);
-
-    return () => {
-      document.removeEventListener('touchstart', handleTouchStart);
-      document.removeEventListener('touchmove', handleTouchMove);
-      document.removeEventListener('touchend', handleTouchEnd);
-    };
-  }, []);
 
   return (
     <div className={`page1 ${swiped ? 'swiped' : ''}`}>
-      <button className={`icon-button ${iconVisible ? 'slide-in' : ''}`}>
+      <button className={`icon-button ${iconVisible ? 'slide-in' : ''}`} onClick={!swiped ? togglePopup : togglePopup2} >
         <img src="https://cdn-icons-png.flaticon.com/512/5930/5930147.png" alt="Icon" />
       </button>
+
+
+        <div>
+
+            <div className={`popupPage1 ${popupPage1 ? 'visible' : ''}`}>
+              <div className="popup-content-game1">
+                <button className="close-button-game1" onClick={togglePopup}>Закрыть</button>
+                <div className='cc1'>Duck-X</div>
+                <div className="rules-game1">
+                  <h3>Rules</h3>
+
+                  <ul>
+                    <li>You can risk a certain amount of coins to earn multiplied profits💰 It's very simple! 
+                    </li>
+                    <li>Choose a percentage of your balance and hold your finger on the indicated spot 😁
+                    </li>
+                    <h3>Every second you'll earn multiplied profits.
+                    The game can end in two ways:</h3>
+                    <li>1. If you lift your finger - you take the additional profit for the time you held it
+                    </li>
+                    <li>2. The game can automatically end, which means you need to lift your finger off the screen in time
+                    </li>
+                    <li>The multiplier starts from 1.00x and can go up to 20.00x</li>
+                    <li>And don’t forget you get 9 tickets each 8 hours.
+                    </li>
+                    <li>Good luck 🍀
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className={`popupPage2 ${popupPage2 ? 'visible' : ''}`}>
+              <div className="popup-conten-game2">
+                <button className="close-button-game2" onClick={togglePopup2}>Закрыть</button>
+                <div className='cc2'>Duck theft</div>
+
+                <div className="rules-game2">
+                  <h3>Is comming</h3>
+                  <ul>
+                    <li>Soon</li>
+
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+        </div>
+
+
+
       <div className={`balance-display ${balanceIconVisible ? 'slide-in-right' : ''}`}>
         <img src="https://kairosrainbow.it/wp-content/uploads/2016/11/coins.png" alt="Balance Icon" className="balance-icon" />
         {balance.toLocaleString()}
@@ -116,6 +146,9 @@ function Page1() {
       <div className="arrow-icon" onClick={handleSwipeClick}>
         {swiped ? <FontAwesomeIcon icon={faArrowLeft} /> : <FontAwesomeIcon icon={faArrowRight} />}
       </div>
+
+      
+
     </div>
   );
 }

@@ -13,7 +13,6 @@ function App() {
   window.Telegram.WebApp.expand();
 
 
-
   window.Telegram.WebApp.setHeaderColor('#282c34');
 
   
