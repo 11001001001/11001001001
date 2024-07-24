@@ -80,7 +80,7 @@ function Page1() {
 
             <div className={`popupPage1 ${popupPage1 ? 'visible' : ''}`}>
               <div className="popup-content-game1">
-                <button className="close-button-game1" onClick={togglePopup}>Закрыть</button>
+                <button className="close-button-game1" onClick={togglePopup}>Close</button>
                 <div className='cc1'>Duck-X</div>
                 <div className="rules-game1">
                   <h3>Rules</h3>
@@ -108,7 +108,7 @@ function Page1() {
 
             <div className={`popupPage2 ${popupPage2 ? 'visible' : ''}`}>
               <div className="popup-conten-game2">
-                <button className="close-button-game2" onClick={togglePopup2}>Закрыть</button>
+                <button className="close-button-game2" onClick={togglePopup2}>Close</button>
                 <div className='cc2'>Duck theft</div>
 
                 <div className="rules-game2">

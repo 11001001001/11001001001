@@ -5,6 +5,13 @@ import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import friendsImage from "./chpic.su_-_UtyaDuckFull_027-ezgif.com-gif-maker.gif"
 
 function Page2() {
+  const shareMessage = () => {
+    const text = encodeURIComponent("Ваше сообщение для Telegram");
+    const url = encodeURIComponent("https://example.com"); // URL, которым хотите поделиться
+    const telegramShareUrl = `https://t.me/share/url?url=${url}&text=${text}`;
+
+    window.open(telegramShareUrl, '_blank');
+  };
   return (
     <div className="page2">
       <div className="video-container">
@@ -38,7 +45,7 @@ function Page2() {
         <button className="number-button">Claim</button>
       </div>
       <div className="button-container">
-        <button className="invite-button">Invite</button>
+        <button className="invite-button" onClick={shareMessage}>Invite</button>
         <button className="copy-button">
           <FontAwesomeIcon icon={faCopy} />
         </button>

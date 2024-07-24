@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/11001001001/static/css/main.2d07670e.css",
-    "main.js": "/11001001001/static/js/main.b8808a02.js",
+    "main.css": "/11001001001/static/css/main.2807ee86.css",
+    "main.js": "/11001001001/static/js/main.422ac78d.js",
     "static/media/chpic.su_-_UtyaDuckFull_025-ezgif.com-gif-maker.gif": "/11001001001/static/media/chpic.su_-_UtyaDuckFull_025-ezgif.com-gif-maker.4009ea52491375f0fdd4.gif",
     "static/media/chpic.su_-_UtyaDuckFull_002-ezgif.com-gif-maker.gif": "/11001001001/static/media/chpic.su_-_UtyaDuckFull_002-ezgif.com-gif-maker.a47b1132d1e0f997eca6.gif",
     "static/media/chpic.su_-_UtyaDuckFull_027-ezgif.com-gif-maker.gif": "/11001001001/static/media/chpic.su_-_UtyaDuckFull_027-ezgif.com-gif-maker.b81a02cc1306dc9248f7.gif",
     "static/media/chpic.su_-_UtyaDuckFull_042-ezgif.com-gif-maker.gif": "/11001001001/static/media/chpic.su_-_UtyaDuckFull_042-ezgif.com-gif-maker.fece1088b3f3c96c98a4.gif",
     "index.html": "/11001001001/index.html",
-    "main.2d07670e.css.map": "/11001001001/static/css/main.2d07670e.css.map",
-    "main.b8808a02.js.map": "/11001001001/static/js/main.b8808a02.js.map"
+    "main.2807ee86.css.map": "/11001001001/static/css/main.2807ee86.css.map",
+    "main.422ac78d.js.map": "/11001001001/static/js/main.422ac78d.js.map"
   },
   "entrypoints": [
-    "static/css/main.2d07670e.css",
-    "static/js/main.b8808a02.js"
+    "static/css/main.2807ee86.css",
+    "static/js/main.422ac78d.js"
   ]
 }

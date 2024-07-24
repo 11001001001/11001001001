@@ -317,12 +317,19 @@ function Page3() {
           style={{opacity: parseFloat(bet) > balance || isNaN(parseFloat(bet)) || parseFloat(bet) <= 0 || isPlaying || tickets <= 0 ? "0.1" : "1"}}
         />
       </button>
-      <div className={`input-container ${animateInput ? 'slide-in' : ''} ${isPlaying ? 'slide-out' : ''}`} >
+      <div className={`input-container ${animateInput ? 'slide-in' : ''} ${isPlaying ? 'slide-out' : ''}`}>
         <label htmlFor="bet-input" style={{ color: message === 'Вы не можете играть' ? 'red' : 'white' }}>
           {message}
         </label>
-        <div className='bet-value' style={{ fontSize: bet ? "40px" : "20px", fontWeight: bet ? "bold" : "", marginBottom: "10px", height: "50px" }}>{bet}</div>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <div className='bet-value' style={{ fontSize: bet ? "40px" : "20px", fontWeight: bet ? "bold" : "", marginBottom: "10px", height: "50px", display: "flex", alignItems: "center" }}>
+            {bet}
+          </div>
+          {bet ? <img src="https://kairosrainbow.it/wp-content/uploads/2016/11/coins.png" alt="Balance Icon" className="balance-icon" style={{ height: "auto", marginLeft: "10px", marginTop: '-10px' }} /> : ""}
+        </div>
       </div>
+      
+
       <div className="bet-buttons">
         <button onClick={() => handle10(0.1)}>10%</button>
         <button onClick={() => handle10(0.2)}>20%</button>

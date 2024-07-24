@@ -10,12 +10,11 @@ import './Navigation.css';
 function App() {
   const [pageLoaded, setPageLoaded] = useState(null);
   const [notTime, setNotTime] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [loadingText, setLoadingText] = useState("Loading...");
+
   window.Telegram.WebApp.expand();
-
-
   window.Telegram.WebApp.setHeaderColor('#282c34');
-
-  
 
   const triggerHapticFeedback = () => {
     if (window.Telegram.WebApp) {
@@ -25,9 +24,7 @@ function App() {
     }
   };
 
-   useEffect(() => {
-
-    
+  useEffect(() => {
     const platform = navigator.platform.toLowerCase();
 
     const fetchInternetTime = async () => {
@@ -35,15 +32,14 @@ function App() {
         const response = await fetch('https://worldtimeapi.org/api/timezone/Etc/UTC');
         const data = await response.json();
         const internetUnixTime = data.unixtime;
-        const localUnixTime = Math.floor(Date.now() / 1000); 
+        const localUnixTime = Math.floor(Date.now() / 1000);
 
-        // Setting the allowed time offset (e.g., 100 seconds)
         const allowedOffset = 100; // 100 seconds
         const timeDifference = Math.abs(localUnixTime - internetUnixTime);
 
         if (platform.includes("win") || platform.includes("mac")) {
           console.log("Open on your mobile device or check your device date");
-          setPageLoaded(true);
+          setPageLoaded(false);
         } else if (timeDifference > allowedOffset) {
           setNotTime(true);
         } else {
@@ -51,12 +47,59 @@ function App() {
         }
       } catch (error) {
         console.error('Error fetching time from the internet:', error);
-        setNotTime(true);
+        setNotTime(false);
       }
     };
 
     fetchInternetTime();
   }, []);
+
+  useEffect(() => {
+    if (loading) {
+      const updateLoadingText = () => {
+        const dotsCount = Math.random() < 0.5 ? 2 : 3;
+        setLoadingText("Loading" + ".".repeat(dotsCount));
+      };
+      const interval = setInterval(updateLoadingText, 250); // Update every 500ms
+      return () => clearInterval(interval);
+    }
+  }, [loading]);
+
+  useEffect(() => {
+    const checkLastVisitTime = () => {
+      window.Telegram.WebApp.CloudStorage.getItems(['lastVisit'], (error, result) => {
+        if (error) {
+          console.error('Failed to get lastVisit from cloud storage:', error);
+          setLoading(false);
+        } else {
+          const lastVisit = result.lastVisit ? parseInt(result.lastVisit, 10) : null;
+          const currentTime = Date.now();
+
+          if (!lastVisit || currentTime - lastVisit > 3600000) { // 1 hour in milliseconds
+            window.Telegram.WebApp.CloudStorage.setItem('lastVisit', currentTime.toString(), (error) => {
+              if (error) {
+                console.error('Failed to set lastVisit in cloud storage:', error);
+              }
+            });
+            setLoading(true);
+          } else {
+            setLoading(false);
+          }
+        }
+      });
+    };
+
+    checkLastVisitTime();
+  }, []);
+
+  useEffect(() => {
+    if (pageLoaded === true) {
+      const timer = setTimeout(() => {
+        setLoading(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [pageLoaded]);
 
   if (pageLoaded === false) {
     return (
@@ -74,14 +117,23 @@ function App() {
     );
   }
 
+  if (loading) {
+    return (
+      <div className="loading-screen">
+        <img src='https://i.ibb.co/vHGj0nj/IMG-1599.webp' alt='Loading'/>
+        <h3 className="loading-text">{loadingText}</h3>
+      </div>
+    );
+  }
+
   return (
     <Router basename="/11001001001">
       <div className="App">
-        <Routes >
-          <Route path="/" element={<Home />} exact/>
+        <Routes>
+          <Route path="/" element={<Home />} exact />
           <Route path="/page1" element={<Page1 />} exact />
-          <Route path="/page2" element={<Page2 />} exact/>
-          <Route path="/page3" element={<Page3 />} exact/> {/* Добавляем маршрут для Page3 */}
+          <Route path="/page2" element={<Page2 />} exact />
+          <Route path="/page3" element={<Page3 />} exact /> 
         </Routes>
         <nav className="nav">
           <Link to="/" className="nav-link" onClick={triggerHapticFeedback}>
@@ -97,7 +149,7 @@ function App() {
             <span>Friends</span>
           </Link>
         </nav>
-      </div>  
+      </div>
     </Router>
   );
 }

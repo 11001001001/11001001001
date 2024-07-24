@@ -10,7 +10,7 @@ const LoadingScreen = ({ onEnd }) => {
   }, [onEnd]);
 
   return (
-    <div className="loading-screen">
+    <div className="loading-screen1">
         <img src={loadingEgg} className="centered-video" alt='Loading..' />
     </div>
   );

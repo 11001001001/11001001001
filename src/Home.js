@@ -1,5 +1,8 @@
   import React, { useState, useEffect } from 'react';
   import './Home.css';
+  import walletImg from "./coins.png"
+  import appsImg from "./exclamation.png"
+  import badgeImg from "./badge.png"
 
 
   function Home() {
@@ -13,6 +16,7 @@
     const [isPopupVisible, setIsPopupVisible] = useState(false);
   
   const togglePopup = () => {
+    triggerHapticFeedback();
     setIsPopupVisible(!isPopupVisible);
   };
     const getUserFirstName = window.Telegram.WebApp.initDataUnsafe.user.first_name;
@@ -59,27 +63,7 @@
       }
     }
 
-    const openTwitter = () => {
-      const twitterUrl = 'twitter://user?screen_name=tap_duck_';
-      const webUrl = 'https://x.com/tap_duck_';
     
-      const openTwitterApp = () => {
-        window.location.href = twitterUrl;
-    
-        setTimeout(() => {
-          window.location.href = webUrl;
-        }, 500);
-      };
-    
-      openTwitterApp();
-    };
-    
-    const openTelegram = () => {
-      window.location.href = "https://t.me/tapducker"
-      
-    }
-
-
     const walletHandler = () => {
       if (!connected) {
         window.Telegram.WebApp.showPopup(params, handlePopupResponse);
@@ -194,22 +178,22 @@
           <div className="stars"></div>
           <button className="toggle-button" onClick={togglePopup}>
             <img 
-              src="https://cdn-icons-png.freepik.com/512/9201/9201879.png" 
+              src={appsImg} 
               alt="Toggle" 
             />
           </button>
 
           <div className={`popup ${isPopupVisible ? 'visible' : ''}`}>
-          <button className="close-button" onClick={togglePopup}>Закрыть</button>
+          <button className="close-button" onClick={togglePopup}>Close</button>
 
             <div className="popup-content">
               <h1>TapDuck</h1>
-              <p style={{fontSize: "30px"}}>Welcome to Tap Duck 🐣</p>
+              <h2 style={{fontSize: "30px", marginTop: "-25px"}}>Welcome to Tap Duck 🐣</h2>
               <p>Our famous duck will give you a random number of coins every day ☝️
               </p>
               <p>You can use these coins in various games within the app to increase your balance 🐥
               </p>
-              <p>🫳 But be careful! Games can both increase and decrease your balance
+              <p>But be careful! Games can both increase and decrease your balance 🫳
               </p>
               <p>Stay active by inviting your friends to play. For each friend you’ll get extra coins 🪙
               </p>
@@ -225,11 +209,11 @@
           </div>
 
           <div className="nickname-container">
-            <img src="https://cdn-icons-png.freepik.com/256/226/226884.png?semt=ais_hybrid" alt="Icon" className="nickname-icon" />
+            <img src={badgeImg} alt="Icon" className="nickname-icon" />
             <div className="nickname">{getUserFirstName ? getUserFirstName : getUserLastName}</div>
           </div>
           <button className="settings-button" onClick={walletHandler}>
-            <img src="https://cdn-icons-png.freepik.com/512/8917/8917366.png" alt="Settings" />
+            <img src={walletImg} alt="Settings" />
           </button>
         </div>
         <div className="balance-container">
@@ -260,16 +244,7 @@
             +{animationValue}
           </div>
         )}
-        <div className="footer">
-          <button className="footer-button" onClick={openTelegram}>
-            <img src="https://seeklogo.com/images/T/telegram-logo-D185476A96-seeklogo.com.png" alt="Telegram Icon" />
-            Telegram
-          </button>
-          <button className="footer-button" onClick={openTwitter}>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png" alt="Bonus Icon" />
-            Twitter
-          </button>
-        </div>
+       
       </div>
     );
   }
