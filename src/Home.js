@@ -188,16 +188,16 @@
 
             <div className="popup-content">
               <h1>TapDuck</h1>
-              <h2 style={{fontSize: "30px", marginTop: "-25px"}}>Welcome to Tap Duck 🐣</h2>
-              <p>Our famous duck will give you a random number of coins every day ☝️
+              <h2 style={{fontSize: "30px", marginTop: "-25px"}}>Welcome</h2>
+              <p>Our famous duck will give you a random number of coins every day 
               </p>
-              <p>You can use these coins in various games within the app to increase your balance 🐥
+              <p >You can use these coins in various games within the app to increase your balance 
               </p>
-              <p>But be careful! Games can both increase and decrease your balance 🫳
+              <p>But be careful! Games can both increase and decrease your balance 
               </p>
-              <p>Stay active by inviting your friends to play. For each friend you’ll get extra coins 🪙
+              <p>Stay active by inviting your friends to play. For each friend you’ll get extra coins 
               </p>
-              <p>We’ll make sure Tap Duck becomes valuable 🐤
+              <p>We’ll make sure Tap Duck becomes valuable 
               </p>
               
 

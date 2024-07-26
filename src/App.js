@@ -6,15 +6,18 @@ import Page2 from './Page2';
 import Page3 from './Page3'; // Импортируем Page3
 import './App.css';
 import './Navigation.css';
+import hackerImg from "./chpic.su_-_UtyaDuckFull_027-ezgif.com-gif-maker.gif"
 
 function App() {
   const [pageLoaded, setPageLoaded] = useState(null);
   const [notTime, setNotTime] = useState(null);
   const [loading, setLoading] = useState(false);
   const [loadingText, setLoadingText] = useState("Loading...");
+  const [checksCompleted, setChecksCompleted] = useState(false);
 
   window.Telegram.WebApp.expand();
   window.Telegram.WebApp.setHeaderColor('#282c34');
+
 
   const triggerHapticFeedback = () => {
     if (window.Telegram.WebApp) {
@@ -25,7 +28,9 @@ function App() {
   };
 
   useEffect(() => {
-    const platform = navigator.platform.toLowerCase();
+    const platform = window.Telegram.WebApp.platform
+    console.log(platform);
+
 
     const fetchInternetTime = async () => {
       try {
@@ -37,9 +42,10 @@ function App() {
         const allowedOffset = 100; // 100 seconds
         const timeDifference = Math.abs(localUnixTime - internetUnixTime);
 
-        if (platform.includes("win") || platform.includes("mac")) {
+        if (platform !== "ios" && platform !== "android") {
           console.log("Open on your mobile device or check your device date");
           setPageLoaded(false);
+          // window.location.href = "https://google.com"
         } else if (timeDifference > allowedOffset) {
           setNotTime(true);
         } else {
@@ -48,6 +54,8 @@ function App() {
       } catch (error) {
         console.error('Error fetching time from the internet:', error);
         setNotTime(false);
+      } finally {
+        setChecksCompleted(true); 
       }
     };
 
@@ -67,7 +75,7 @@ function App() {
 
   useEffect(() => {
     const checkLastVisitTime = () => {
-      window.Telegram.WebApp.CloudStorage.getItems(['lastVisit'], (error, result) => {
+      window.Telegram.WebApp.CloudStorage.getItems(['lastVisit2'], (error, result) => {
         if (error) {
           console.error('Failed to get lastVisit from cloud storage:', error);
           setLoading(false);
@@ -101,6 +109,17 @@ function App() {
     }
   }, [pageLoaded]);
 
+  if (!checksCompleted) {
+    return (
+      <div style={{ backgroundColor: 'black', color: 'white', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <div className="loading-screen">
+        <img src='https://i.ibb.co/tPg7LNh/photo-output.jpg' alt='Loading'/>
+        <h3 className="loading-text">{loadingText}</h3>
+      </div>
+      </div>
+    );
+  }
+
   if (pageLoaded === false) {
     return (
       <div style={{ backgroundColor: 'black', color: 'white', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -111,20 +130,27 @@ function App() {
 
   if (notTime === true) {
     return (
-      <div style={{ backgroundColor: 'black', color: 'white', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <h1>Little hacker</h1>
+      <div style={{ backgroundColor: 'black', color: 'white', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+        <img src={hackerImg} alt="Suspicious activity detected" style={{ marginBottom: '20px', width: '100px' }} />
+        <h1>Hah.. Little hacker :)</h1>
+        <div style={{ fontStyle: 'italic', fontSize: '11px', textAlign: 'center', marginTop: '20px' }}>
+          Good try but let's play fair. Any suspicious activity may lead to blockage of the account.
+        </div>
       </div>
     );
   }
-
+  
   if (loading) {
     return (
       <div className="loading-screen">
-        <img src='https://i.ibb.co/vHGj0nj/IMG-1599.webp' alt='Loading'/>
+        <img src='https://i.ibb.co/tPg7LNh/photo-output.jpg' alt='Loading'/>
         <h3 className="loading-text">{loadingText}</h3>
       </div>
     );
   }
+  
+
+  
 
   return (
     <Router basename="/11001001001">

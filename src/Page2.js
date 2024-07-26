@@ -6,8 +6,11 @@ import friendsImage from "./chpic.su_-_UtyaDuckFull_027-ezgif.com-gif-maker.gif"
 
 function Page2() {
   const shareMessage = () => {
-    const text = encodeURIComponent("Ваше сообщение для Telegram");
-    const url = encodeURIComponent("https://example.com"); // URL, которым хотите поделиться
+
+    const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
+
+    const text = encodeURIComponent("Tap Duck");
+    const url = encodeURIComponent(`https://t.me/gneqstrrbot?start=${userId}`); 
     const telegramShareUrl = `https://t.me/share/url?url=${url}&text=${text}`;
 
     window.open(telegramShareUrl, '_blank');

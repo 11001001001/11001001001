@@ -294,6 +294,8 @@ body, html {
   opacity: 0.10; /* 20% прозрачности */
   z-index: -1; /* Помещает фон позади содержимого элемента */
   border-radius: 12px; /* Сохраняет радиус границы */
+  justify-content: center;
+  
 }
 
 .close-button {
@@ -321,8 +323,7 @@ body, html {
 }
 
 .popup-content p {
-  text-align: left;
-
+  text-align: center;
   font-size: 14px;
-  margin: 20px;
+  margin: 10px 20px 0 20px ;
 }
