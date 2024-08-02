@@ -36,7 +36,7 @@ function App() {
   }
 
   const handleStoryCompletion = () => {
-    window.Telegram.WebApp.CloudStorage.setItem('storySeen2', 'true', (error) => {
+    window.Telegram.WebApp.CloudStorage.setItem('storySeen', 'true', (error) => {
       if (error) {
         console.error('Failed to set storySeen in cloud storage:', error);
       }
@@ -90,7 +90,7 @@ function App() {
 
   useEffect(() => {
     const checkLastVisitTime = () => {
-      window.Telegram.WebApp.CloudStorage.getItems(['lastVisit2', 'storySeen2'], (error, result) => {
+      window.Telegram.WebApp.CloudStorage.getItems(['lastVisit2', 'storySeen'], (error, result) => {
         if (error) {
           console.error('Failed to get lastVisit from cloud storage:', error);
           setLoading(false);
