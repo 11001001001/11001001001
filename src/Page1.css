@@ -311,6 +311,8 @@
 
 
 .rules-game1 {
+  font-family: "Comfortaa", sans-serif;
+  font-weight: 400;
   color: rgb(255, 255, 255);
   margin-left: 8px;
 
@@ -319,7 +321,7 @@
 .rules-game1 h3 {
   margin: 20px 0 10px 0;
   text-align: left;
-  font-size: 24px;
+  font-size: 18px;
 }
 
 .rules-game1 ul {
@@ -334,11 +336,14 @@
 }
 
 .rules-game2 {
+  font-family: "Comfortaa", sans-serif;
+  font-weight: 400;
   margin-left: 8px;
   color: grey;
 }
 
 .rules-game2 h3 {
+  
   margin: 20px 0 10px 0;
 }
 

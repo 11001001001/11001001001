@@ -85,6 +85,8 @@ body {
 }
 
 .loading-text {
+  font-family: "Comfortaa", sans-serif;
+  font-weight: 400;
   font-size: 1rem;
   color: white;
   position: absolute;

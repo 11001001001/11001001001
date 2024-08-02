@@ -323,7 +323,7 @@ function Page3() {
         </label>
         <div style={{ display: "flex", alignItems: "center" }}>
           <div className='bet-value' style={{ fontSize: bet ? "40px" : "20px", fontWeight: bet ? "bold" : "", marginBottom: "10px", height: "50px", display: "flex", alignItems: "center" }}>
-            {bet}
+            {bet.toLocaleString()}
           </div>
           {bet ? <img src="https://kairosrainbow.it/wp-content/uploads/2016/11/coins.png" alt="Balance Icon" className="balance-icon" style={{ height: "auto", marginLeft: "10px", marginTop: '-10px' }} /> : ""}
         </div>
