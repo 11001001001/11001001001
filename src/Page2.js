@@ -22,7 +22,6 @@ function Page2() {
     }
   };
 
-
   useEffect(() => {
     const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
     setBalanceIconVisible(true);
@@ -32,7 +31,7 @@ function Page2() {
         console.error('Failed to get items from cloud storage:', error);
       } else {
         let promo = result.promo;
-        setBalance1(parseInt(result.balance, 10))
+        setBalance1(parseFloat(result.balance) || 0.00);
         if (!promo) {
           promo = generatePromoCode(userId);
           window.Telegram.WebApp.CloudStorage.setItem('promo', promo, (error) => {
@@ -43,9 +42,9 @@ function Page2() {
         }
         setPromoCode(promo);
 
-        const balance = parseInt(result.balance || '0', 10);
+        const balance = parseFloat(result.balance || '0');
         const claimedCoins = parseInt(result.claimedCoins || '0', 10);
-        setClaimedCoins(parseInt(claimedCoins, 10));
+        setClaimedCoins(claimedCoins);
         fetchPromoData(userId, balance, claimedCoins);
       }
     });
@@ -67,9 +66,9 @@ function Page2() {
       if (error) {
         console.error('Failed to get balance from cloud storage:', error);
       } else {
-        const balance = parseInt(result.balance || '0', 10);
+        const balance = parseFloat(result.balance || '0');
         const newBalance = balance + availableCoins;
-        setBalance1(newBalance)
+        setBalance1(newBalance);
         window.Telegram.WebApp.CloudStorage.setItem('balance', newBalance.toString(), (error) => {
           if (error) {
             console.error('Failed to update balance in cloud storage:', error);

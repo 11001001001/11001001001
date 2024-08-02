@@ -1,17 +1,20 @@
 {
   "files": {
-    "main.css": "/11001001001/static/css/main.cd4c9325.css",
-    "main.js": "/11001001001/static/js/main.e24e690e.js",
+    "main.css": "/11001001001/static/css/main.c8b22020.css",
+    "main.js": "/11001001001/static/js/main.b5184718.js",
     "static/media/chpic.su_-_UtyaDuckFull_025-ezgif.com-gif-maker.gif": "/11001001001/static/media/chpic.su_-_UtyaDuckFull_025-ezgif.com-gif-maker.4009ea52491375f0fdd4.gif",
     "static/media/chpic.su_-_UtyaDuckFull_002-ezgif.com-gif-maker.gif": "/11001001001/static/media/chpic.su_-_UtyaDuckFull_002-ezgif.com-gif-maker.a47b1132d1e0f997eca6.gif",
+    "static/media/chpic.su_-_UtyaDuckFull_078-ezgif.com-gif-maker.gif": "/11001001001/static/media/chpic.su_-_UtyaDuckFull_078-ezgif.com-gif-maker.d95b634463766c2264a1.gif",
     "static/media/chpic.su_-_UtyaDuckFull_027-ezgif.com-gif-maker.gif": "/11001001001/static/media/chpic.su_-_UtyaDuckFull_027-ezgif.com-gif-maker.b81a02cc1306dc9248f7.gif",
+    "static/media/chpic.su_-_UtyaDuckFull_055-ezgif.com-gif-maker.gif": "/11001001001/static/media/chpic.su_-_UtyaDuckFull_055-ezgif.com-gif-maker.bfee67ae986192b92c96.gif",
     "static/media/chpic.su_-_UtyaDuckFull_042-ezgif.com-gif-maker.gif": "/11001001001/static/media/chpic.su_-_UtyaDuckFull_042-ezgif.com-gif-maker.fece1088b3f3c96c98a4.gif",
+    "static/media/chpic.su_-_UtyaDuckFull_017-ezgif.com-gif-maker.gif": "/11001001001/static/media/chpic.su_-_UtyaDuckFull_017-ezgif.com-gif-maker.a32ea56e2d6c205aff5f.gif",
     "index.html": "/11001001001/index.html",
-    "main.cd4c9325.css.map": "/11001001001/static/css/main.cd4c9325.css.map",
-    "main.e24e690e.js.map": "/11001001001/static/js/main.e24e690e.js.map"
+    "main.c8b22020.css.map": "/11001001001/static/css/main.c8b22020.css.map",
+    "main.b5184718.js.map": "/11001001001/static/js/main.b5184718.js.map"
   },
   "entrypoints": [
-    "static/css/main.cd4c9325.css",
-    "static/js/main.e24e690e.js"
+    "static/css/main.c8b22020.css",
+    "static/js/main.b5184718.js"
   ]
 }
