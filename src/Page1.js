@@ -224,7 +224,7 @@ function Page1() {
           color: 'white',
         }}
       >
-        Duck-Option
+        DuckTrade
       </div>
 
       <div
@@ -282,7 +282,7 @@ function Page1() {
         {balance.toLocaleString()}
       </div>
       <div className={`content ${swiped ? '' : 'hidden'}`}>
-        <div className="above-text">Duck-Op</div>
+        <div className="above-text">DuckTrade</div>
         <div className="video-container">
           <img src={comingGame} className="centered-video" alt='Loading..' />
         </div>
