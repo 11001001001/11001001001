@@ -90,6 +90,6 @@ body {
   font-size: 1rem;
   color: white;
   position: absolute;
-  bottom: 100px; /* Отодвигаем текст на 100px от нижнего края */
+  bottom: 250px; /* Отодвигаем текст на 100px от нижнего края */
   z-index: 1; /* Устанавливаем текст выше изображения */
 }
