@@ -215,7 +215,7 @@ function App() {
     return (
       <div style={{ backgroundColor: 'black', color: 'white', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <div className="loading-screen">
-        <img src='https://i.ibb.co/jkm133P/photo-output.jpg' alt='Loading'/>
+        <img src='https://i.ibb.co/X585gbc/photo-output.jpg' alt='Loading'/>
         <h3 className="loading-text">{loadingText}<span style={{ display: 'inline-block', width: '20px', textAlign: 'left' }}>{dots}</span> {/* Точки всегда остаются справа */}</h3>
       </div>
       </div>

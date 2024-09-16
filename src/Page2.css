@@ -32,7 +32,7 @@
     font-size: 1.5em;
     font-family: "Comfortaa", sans-serif;
     font-weight: 700;
-    animation-delay: 0.4s;
+    animation-delay: 0.1s;
   }
   
   .bonus-text {
@@ -41,7 +41,7 @@
     font-family: "Comfortaa", sans-serif;
     font-weight: 400;
     text-align: center;
-    animation-delay: 0.3s;
+    animation-delay: 0.1s;
   }
   
   .friend-section {
@@ -62,7 +62,7 @@
   
   .friend-container:first-child {
     transform: translateX(-100%);
-    animation-delay: 0.1s;
+    animation-delay: 0.2s;
   }
   
   .friend-container.premium {
