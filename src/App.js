@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Home from './Home';
 import Page1 from './Page1';
 import Page2 from './Page2';
-import Page3 from './Page3'; // Импортируем Page3
+import Page3 from './Page3'; 
+import Page4 from './Page4'; 
+import LevelPage from './LevelPage';
 import StoryComponent from './StoryComponent'; // Import the StoryComponent
 import './App.css';
 import './Navigation.css';
@@ -12,15 +14,17 @@ import hackerImg from "./chpic.su_-_UtyaDuckFull_027-ezgif.com-gif-maker.gif"
 const API_BASE_URL = 'https://tapduck-3d49976b17d2.herokuapp.com/api';
 
 function App() {
-  const [pageLoaded, setPageLoaded] = useState(null);
   const [notTime, setNotTime] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [loadingText, setLoadingText] = useState("Loading...");
+  const [loadingText, setLoadingText] = useState("Loading");
   const [checksCompleted, setChecksCompleted] = useState(false);
-  const [storyCompleted, setStoryCompleted] = useState(false);
+  const [storyCompleted, setStoryCompleted] = useState(null);
+  const [dots, setDots] = useState("");
+  const [usersCount, setUsersCount] = useState(0);
+
 
   window.Telegram.WebApp.expand();
   window.Telegram.WebApp.setHeaderColor('#282c34');
+  const userId = window.Telegram.WebApp.initDataUnsafe.user.id.toString();
 
 
   const triggerHapticFeedback = () => {
@@ -46,76 +50,71 @@ function App() {
 
   useEffect(() => {
     const platform = window.Telegram.WebApp.platform;
-    console.log(platform);
-  
-    const fetchInternetTime = async () => {
-      try {
-        const response = await fetch('https://worldtimeapi.org/api/timezone/Etc/UTC');
-        const data = await response.json();
-        const internetUnixTime = data.unixtime;
-        const localUnixTime = Math.floor(Date.now() / 1000);
-  
-        const allowedOffset = 100;
-        const timeDifference = Math.abs(localUnixTime - internetUnixTime);
-  
-        if (platform !== "ios" && platform !== "android") {
-          // Redirect to the specified URL if not on mobile
-          window.location.replace('https://hdr2029.github.io/monofacture/');
-        } else if (timeDifference > allowedOffset) {
-          setNotTime(true);
-        } else {
-          setPageLoaded(true);
-        }
-      } catch (error) {
-        console.error('Error fetching time from the internet:', error);
-        setNotTime(false);
-      } finally {
-        setChecksCompleted(true);
+    window.Telegram.WebApp.CloudStorage.getItems(['storySeen'], (error, result) => {
+      if (error) {
+        console.error('Failed to get storySeen from cloud storage:', error);
+      } else {
+        const seen = result.storySeen === 'true'; 
+        setStoryCompleted(seen);
       }
-    };
+    });
+
+    if (platform !== "ios" && platform !== "android") {
+      window.location.replace('https://hdr2029.github.io/monofacture/');    
+    }
+
+      const fetchInternetTime = async (retryCount = 3) => {
+        try {
+          const response = await fetch('https://worldtimeapi.org/api/timezone/Etc/UTC', { timeout: 5000 });
+          const data = await response.json();
+      
+          // Проверка, есть ли данные о времени в ответе
+          if (!data.unixtime) {
+            throw new Error('No time data in response');
+          }
+      
+          const internetUnixTime = data.unixtime;
+          const localUnixTime = Math.floor(Date.now() / 1000);
+      
+          const allowedOffset = 100;
+          const timeDifference = Math.abs(localUnixTime - internetUnixTime);
+          if (timeDifference > allowedOffset) {
+            setNotTime(true);
+          }
+      
+        } catch (error) {
+          console.error('Error fetching time from the internet:', error);
+      
+          // Если ошибка и еще есть попытки
+          if (retryCount > 0) {
+            console.log(`Retrying... ${retryCount} attempts left`);
+      
+            // Таймаут перед повторным запросом
+            setTimeout(() => fetchInternetTime(retryCount - 1), 5000);
+          }
+        } finally {
+          setChecksCompleted(true);
+        }
+      };
+      
   
     fetchInternetTime();
   }, []);
 
-  useEffect(() => {
-    if (loading) {
-      const updateLoadingText = () => {
-        const dotsCount = Math.random() < 0.5 ? 2 : 3;
-        setLoadingText("Loading" + ".".repeat(dotsCount));
-      };
-      const interval = setInterval(updateLoadingText, 250);
-      return () => clearInterval(interval);
-    }
-  }, [loading]);
-
-  useEffect(() => {
-    const checkLastVisitTime = () => {
-      window.Telegram.WebApp.CloudStorage.getItems(['lastVisit2', 'storySeen'], (error, result) => {
-        if (error) {
-          console.error('Failed to get lastVisit from cloud storage:', error);
-          setLoading(false);
-        } else {
-          setStoryCompleted(result.storySeen)
-
-          const lastVisit = result.lastVisit ? parseInt(result.lastVisit, 10) : null;
-          const currentTime = Date.now();
-
-          if (!lastVisit || currentTime - lastVisit > 3600000) {
-            window.Telegram.WebApp.CloudStorage.setItem('lastVisit', currentTime.toString(), (error) => {
-              if (error) {
-                console.error('Failed to set lastVisit in cloud storage:', error);
-              }
-            });
-            setLoading(true);
-          } else {
-            setLoading(false);
+  const fetchPromoData = (userId) => {
+    fetch(`https://tapduck-3d49976b17d2.herokuapp.com/api/promo-count/${userId}`)
+      .then(response => response.json())
+      .then(data => {
+        const { promo_count } = data;
+        setUsersCount(promo_count);
+        window.Telegram.WebApp.CloudStorage.setItem('usersCount', promo_count, (error) => {
+          if (error) {
+            console.error('Failed to set promo in cloud storage:', error);
           }
-        }
-      });
-    };
-
-    checkLastVisitTime();
-  }, []);
+        });
+      })
+      .catch(error => console.error('Failed to fetch promo data:', error));
+  };
 
   useEffect(() => {
     const checkUserExistence = async () => {
@@ -188,39 +187,41 @@ function App() {
         const exist1 = result.existed001 ? result.existed001 === 'true' : false;
         if (!exist1) {
           checkUserExistence();
+        } else {
+          fetchPromoData(userId)
         }
       }
     });
   }, []);
-  
 
+  
   useEffect(() => {
-    if (pageLoaded === true) {
-      const timer = setTimeout(() => {
-        setLoading(false);
-      }, 5000);
-      return () => clearTimeout(timer);
+    if (!checksCompleted) {
+      const interval = setInterval(() => {
+        setDots((prevDots) => {
+          // Если точек уже 3, убираем все и начинаем заново, иначе добавляем точку
+          return prevDots.length < 3 ? prevDots + "." : "";
+        });
+      }, 250); // Используем случайное время для добавления точки
+
+      return () => clearInterval(interval); // Очищаем интервал при завершении
     }
-  }, [pageLoaded]);
+  }, [checksCompleted]);
+
+
+
 
   if (!checksCompleted) {
     return (
       <div style={{ backgroundColor: 'black', color: 'white', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <div className="loading-screen">
-        <img src='https://i.ibb.co/tPg7LNh/photo-output.jpg' alt='Loading'/>
-        <h3 className="loading-text">{loadingText}</h3>
+        <img src='https://i.ibb.co/jkm133P/photo-output.jpg' alt='Loading'/>
+        <h3 className="loading-text">{loadingText}<span style={{ display: 'inline-block', width: '20px', textAlign: 'left' }}>{dots}</span> {/* Точки всегда остаются справа */}</h3>
       </div>
       </div>
     );
   }
-
-  if (pageLoaded === false) {
-    return (
-      <div style={{ backgroundColor: 'black', color: 'white', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <h1>Denied</h1>
-      </div>
-    );
-  }
+  
 
   if (notTime === true) {
     return (
@@ -234,16 +235,8 @@ function App() {
     );
   }
   
-  if (loading) {
-    return (
-      <div className="loading-screen">
-        <img src='https://i.ibb.co/tPg7LNh/photo-output.jpg' alt='Loading'/>
-        <h3 className="loading-text">{loadingText}</h3>
-      </div>
-    );
-  }
   
-  if (!storyCompleted) {
+  if (!storyCompleted && checksCompleted === true)  {
     return <StoryComponent onComplete={handleStoryCompletion} />;
   }
   
@@ -258,6 +251,8 @@ function App() {
           <Route path="/page1" element={<Page1 />} exact />
           <Route path="/page2" element={<Page2 />} exact />
           <Route path="/page3" element={<Page3 />} exact /> 
+          <Route path="/page4" element={<Page4 />} exact /> 
+          <Route path="/levelpage" element={<LevelPage />} exact /> 
         </Routes>
         <nav className="nav">
           <Link to="/" className="nav-link" onClick={triggerHapticFeedback}>

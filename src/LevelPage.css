@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Bowlby+One&display=swap'); 
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'Chakra Petch', sans-serif;
+}
+
+.level-home {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  text-align: center;
+  color: inherit;
+  padding-bottom: 80px;
+}
+
+.level-header {
+  width: 100%;
+  height: 120px; /* Начальная высота хедера */
+  box-shadow: 0 1px 50px rgba(93, 95, 98, 0.6); /* Тень только снизу */
+  background-color: hwb(280 8% 91% / 0.76);
+  border-bottom-left-radius: 50% 20%;
+  border-bottom-right-radius: 50% 20%;
+  position: absolute;
+  top: 0; /* Начальное положение */
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: height 0.75s ease-in-out; /* Анимация изменения высоты */
+}
+
+.level-header-expand {
+  height: calc(65vh + 120px); /* Конечная высота хедера */
+}
+
+.level-header h1 {
+  font-family: 'Audiowide', sans-serif;
+  color: #fff;
+  font-size: 24px;
+}
+
+.level-stars {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+  animation: level-moveBackground 20s linear infinite;
+}
+
+@keyframes level-moveBackground {
+  0% { background-position: 0 0; }
+  100% { background-position: -1000px -1000px; }
+}

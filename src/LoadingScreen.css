@@ -9,5 +9,6 @@
   .loading-video {
     width: 150px; /* Устанавливаем нужный размер видео */
     height: 150px;
+    top: 50%;
   }
   

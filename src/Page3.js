@@ -234,7 +234,7 @@ function Page3() {
       timeoutRef.current = setTimeout(() => {
         clearInterval(intervalRef.current);
         setGameOver(true);
-        setResult(`-${betAmount.toFixed(2)} coin`);
+        setResult(`-${betAmount.toLocaleString()} coin`);
         setIsPlaying(false);
         setBet(''); // Сбрасываем ставку
         triggerHapticFeedbackError();
@@ -260,7 +260,7 @@ function Page3() {
           console.error('Failed to update balance in cloud storage:', error);
         }
       });
-      setResult(`+${winnings.toFixed(2)} coin`);
+      setResult(`+${Math.floor(winnings).toLocaleString()} coin`);
       setBet('');
       setValue(0.00);
       setIsPlaying(false);

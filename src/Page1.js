@@ -13,6 +13,8 @@ function Page1() {
   const [swiped, setSwiped] = useState(false);
   const [popupPage1, setPopupPage1] = useState(false);
   const [popupPage2, setPopupPage2] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+
 
 
   
@@ -49,17 +51,40 @@ function Page1() {
   }, []);
 
   const togglePopup = () => {
+    
     triggerHapticFeedback();
+    if (popupPage1) {
+      // Запускаем анимацию закрытия
+      setIsAnimating(true);
+      setTimeout(() => {
+        setIsAnimating(false);
+        setPopupPage1(!popupPage1);
+      }, 500); // Длительность анимации (0.5s)
+    } else {
     setPopupPage1(!popupPage1);
+  }
   };
   const togglePopup2 = () => {
     triggerHapticFeedback();
+    if (popupPage2) {
+      // Запускаем анимацию закрытия
+      setIsAnimating(true);
+      setTimeout(() => {
+        setIsAnimating(false);
+        setPopupPage2(!popupPage2);
+      }, 500); // Длительность анимации (0.5s)
+    } else {
     setPopupPage2(!popupPage2);
-  };
+  }
+} ;
 
   const handleStartClick = () => {
     triggerHapticFeedback();
     navigate('/page3'); 
+  };
+  const handleStartClick2 = () => {
+    triggerHapticFeedback();
+    navigate('/page4'); 
   };
 
   const handleSwipeClick = () => {
@@ -71,55 +96,182 @@ function Page1() {
 
   return (
     <div className={`page1 ${swiped ? 'swiped' : ''}`}>
-      <button className={`icon-button ${iconVisible ? 'slide-in' : ''}`} onClick={!swiped ? togglePopup : togglePopup2} >
+      <button className={`icon-button ${iconVisible ? 'slide-in' : ''}`} onClick={!swiped ? togglePopup2 : togglePopup} >
         <img src="https://cdn-icons-png.flaticon.com/512/5930/5930147.png" alt="Icon" />
       </button>
 
 
         <div>
+           
 
-            <div className={`popupPage1 ${popupPage1 ? 'visible' : ''}`}>
-              <div className="popup-content-game1">
-                <button className="close-button-game1" onClick={togglePopup}>Close</button>
-                <div className='cc1'>Duck-X</div>
-                <div className="rules-game1">
-                  <h3>Rules</h3>
+{popupPage1 && (
+  <div
+    id="modal-background"
+    onClick={togglePopup}
+    style={{
+      position: 'fixed',
+      bottom: 0,
+      left: 0,
+      width: '100vw',
+      height: '100vh',
+      backgroundColor: 'rgba(0, 0, 0, 0)',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'flex-end',
+      zIndex: 1000,
+      animation: isAnimating ? 'fadeOut 0.5s, slideDown 0.5s' : 'fadeIn 0.5s, slideUp 0.5s',
+    }}
+  >
+    <div
+      style={{
+        width: '100%',
+        height: '70%',
+        backgroundColor: '#16181c',
+        boxShadow: '0 -4px 10px rgb(255, 255, 255)',
+        borderRadius: '40px 40px 0 0',
+        position: 'relative',
+        padding: '20px',
+      }}
+    >
+      <div
+        style={{
+          marginTop: '5px',
+          textAlign: 'center',
+          fontSize: '40px',
+          color: 'white',
+        }}
+      >
+        Duck-X
+      </div>
 
-                  <ul>
-                    <li>You can risk a certain amount of coins to earn multiplied profits💰 It's very simple! 
-                    </li>
-                    <li>Choose a percentage of your balance and hold your finger on the indicated spot 😁
-                    </li>
-                    <h3>Every second you'll earn multiplied profits.
-                    The game can end in two ways:</h3>
-                    <li>1. If you lift your finger - you take the additional profit for the time you held it
-                    </li>
-                    <li>2. The game can automatically end, which means you need to lift your finger off the screen in time
-                    </li>
-                    <li>The multiplier starts from 1.00x and can go up to 20.00x</li>
-                    <li>And don’t forget you get 9 tickets each 8 hours.
-                    </li>
-                    <li>Good luck 🍀
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+      <div
+        style={{
+          marginTop: '30px',
+          marginLeft: '5px',
+          fontSize: '24px',
+          color: 'white',
+          textAlign: 'left'
+        }}
+      >
+        Rules
+      </div>
 
-            <div className={`popupPage2 ${popupPage2 ? 'visible' : ''}`}>
-              <div className="popup-conten-game2">
-                <button className="close-button-game2" onClick={togglePopup2}>Close</button>
-                <div className='cc2'>Duck theft</div>
+      <div
+        style={{
+          marginTop: '20px',
+          marginLeft: '5px',
+          fontSize: '18px',
+          color: 'white',
+          textAlign: 'left'
 
-                <div className="rules-game2">
-                  <h3>Is comming</h3>
-                  <ul>
-                    <li>Soon</li>
+        }}
+      >
+        You can risk a certain number of tokens to multiply them. Each ticket gives you one attempt. Be careful not to lose everything. Good luck, Ducker🍀! 
+      </div>
 
-                  </ul>
-                </div>
-              </div>
-            </div>
+      <button
+        className="start-button"
+        style={{
+          width: '90%',
+          height: '80px',
+          marginTop: '50px',
+          display: 'block',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+        }}
+        onClick={handleStartClick}
+      >
+        Start
+      </button>
+    </div>
+  </div>
+)}
+
+{popupPage2 && (
+  <div
+    id="modal-background"
+    onClick={togglePopup2}
+    style={{
+      position: 'fixed',
+      bottom: 0,
+      left: 0,
+      width: '100vw',
+      height: '100vh',
+      backgroundColor: 'rgba(0, 0, 0, 0)',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'flex-end',
+      zIndex: 1000,
+      animation: isAnimating ? 'fadeOut 0.5s, slideDown 0.5s' : 'fadeIn 0.5s, slideUp 0.5s',
+    }}
+  >
+    <div
+      style={{
+        width: '100%',
+        height: '70%',
+        backgroundColor: '#16181c',
+        boxShadow: '0 -4px 10px rgb(255, 255, 255)',
+        borderRadius: '40px 40px 0 0',
+        position: 'relative',
+        padding: '20px',
+      }}
+    >
+      <div
+        style={{
+          marginTop: '5px',
+          textAlign: 'center',
+          fontSize: '40px',
+          color: 'white',
+        }}
+      >
+        Duck-Option
+      </div>
+
+      <div
+        style={{
+          marginTop: '30px',
+          marginLeft: '5px',
+          fontSize: '24px',
+          color: 'white',
+          textAlign: 'left'
+        }}
+      >
+        Rules
+      </div>
+
+      <div
+        style={{
+          marginTop: '20px',
+          marginLeft: '5px',
+          fontSize: '18px',
+          color: 'white',
+          textAlign: 'left'
+
+        }}
+      >
+        Guess the 📈direction📉 the price will move and hold out for 30 seconds. Each successful trade earns you a 45% profit. Level up and unlock full access to trading at 100%! 
+      </div>
+
+      <button
+        className="start-button coming-soon-button"
+        style={{
+          width: '90%',
+          height: '80px',
+          marginTop: '50px',
+          display: 'block',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+        }}
+        onClick={handleStartClick2}
+      >
+        Start
+      </button>
+    </div>
+  </div>
+)}
+
+
+          
 
         </div>
 
@@ -129,25 +281,42 @@ function Page1() {
         <img src="https://kairosrainbow.it/wp-content/uploads/2016/11/coins.png" alt="Balance Icon" className="balance-icon" />
         {balance.toLocaleString()}
       </div>
-      <div className={`content ${swiped ? 'hidden' : ''}`}>
+      <div className={`content ${swiped ? '' : 'hidden'}`}>
+        <div className="above-text">Duck-Op</div>
+        <div className="video-container">
+          <img src={comingGame} className="centered-video" alt='Loading..' />
+        </div>
+        <button className="start-button coming-soon-button" onClick={handleStartClick2}>Start</button>
+      </div>
+      <div className={`swipe-content ${swiped ? 'hidden' : ''}`}>
         <div className="above-text">Duck-X</div>
         <div className="video-container">
-          <img src={xGame} className="centered-video" alt='Loading..' />
+        <img src={xGame} className="centered-video" alt='Loading..' />
         </div>
-        <button className="start-button" onClick={handleStartClick}>Start</button>
-      </div>
-      <div className={`swipe-content ${swiped ? '' : 'hidden'}`}>
-        <div className="above-text">Duck theft</div>
-        <div className="video-container">
-        <img src={comingGame} className="centered-video" alt='Loading..' />
-        </div>
-        <button className="start-button coming-soon-button" disabled>Coming soon</button>
+        <button className="start-button " onClick={handleStartClick}>Start</button>
       </div>
       <div className="arrow-icon" onClick={handleSwipeClick}>
         {swiped ? <FontAwesomeIcon icon={faArrowLeft} /> : <FontAwesomeIcon icon={faArrowRight} />}
       </div>
 
-      
+      <style>{`
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+            @keyframes slideUp {
+                from { transform: translateY(100%); }
+                to { transform: translateY(0); }
+            }
+            @keyframes slideDown {
+                from { transform: translateY(0); }
+                to { transform: translateY(100%); }
+            }
+            `}</style>
 
     </div>
   );

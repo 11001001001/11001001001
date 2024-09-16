@@ -10,6 +10,7 @@ function Page2() {
   const [copyMessage, setCopyMessage] = useState('');
   const [availableCoins, setAvailableCoins] = useState(0);
   const [claimedCoins, setClaimedCoins] = useState(0);
+  const [usersCount, setUsersCount] = useState(0);
   const [showConfetti, setShowConfetti] = useState(false);
   const [balance1, setBalance1] = useState(0.00);
   const [balanceIconVisible, setBalanceIconVisible] = useState(false);
@@ -55,6 +56,7 @@ function Page2() {
       .then(response => response.json())
       .then(data => {
         const { promo_count, premium_count } = data;
+        setUsersCount(promo_count);
         const newAvailableCoins = (promo_count * 500) + (premium_count * 1500) - claimedCoins;
         setAvailableCoins(newAvailableCoins > 0 ? newAvailableCoins : 0);
       })
@@ -123,6 +125,10 @@ function Page2() {
 
   return (
     <div className="page2">
+      <div className={`friends-display ${'slide-in-right'}`} style={{ fontFamily: '-apple-system'}}>
+                <img src="https://www.transparentpng.com/download/user/gray-user-profile-icon-png-fP8Q1P.png" alt="Balance Icon" className="balance-icon" />
+                {usersCount.toLocaleString()}
+            </div>
       <div className={`balance-display ${balanceIconVisible ? 'slide-in-right' : ''}`}>
         <img src="https://kairosrainbow.it/wp-content/uploads/2016/11/coins.png" alt="Balance Icon" className="balance-icon" />
         {balance1.toLocaleString()}
@@ -135,7 +141,7 @@ function Page2() {
       <div className="friend-section">
         <div className="friend-container">
           <img src="https://cdn-icons-png.flaticon.com/512/4423/4423663.png" alt="icon" className="friend-icon" />
-          <div className="friend-text">Simple</div>
+          <div className="friend-text">Regular</div>
           <div className="friend-bonus">
             <img src="https://static.vecteezy.com/system/resources/previews/019/051/642/original/gold-coins-symbol-png.png" alt="small icon" className="small-icon" />
             <div>+500</div>

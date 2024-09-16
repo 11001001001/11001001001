@@ -82,6 +82,28 @@
   height: 20px;
   margin-right: 5px;
 }
+.friends-display {
+  position: absolute;
+  top: 15px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 1.2em;
+  opacity: 0; /* Начальное состояние: невидимый */
+  transform: translateX(100px); /* Начальное положение: за границей справа */
+  transition: transform 0.4s ease-out, opacity 0.4s ease-out; /* Уменьшаем время анимации до 0.4 секунд */
+}
+
+.friends-display.slide-in-right {
+  opacity: 1; /* Делаем видимым */
+  transform: translateX(0); /* Перемещаем в конечное положение */
+}
+
+.friends-display img {
+  width: 22px;
+  height: 22px;
+  margin-right: 7px;
+}
 
 .content {
   flex-grow: 1;
@@ -208,10 +230,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('https://i.ibb.co/ftcq6RD/IMG-1589.webp');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover; /* или 'contain', в зависимости от нужного результата */
+  background-color: #16181c;;
   opacity: 0.10; /* 20% прозрачности */
   z-index: -1; /* Помещает фон позади содержимого элемента */
   border-radius: 12px; /* Сохраняет радиус границы */
@@ -311,28 +330,28 @@
 
 
 .rules-game1 {
-  font-family: "Comfortaa", sans-serif;
+  font-family: "-apple-system";
   font-weight: 400;
   color: rgb(255, 255, 255);
-  margin-left: 8px;
+  margin-top: 150px;
 
 }
 
 .rules-game1 h3 {
-  margin: 20px 0 10px 0;
-  text-align: left;
-  font-size: 18px;
+  margin: 40px 0 10px 0;
+  text-align: center;
+  font-size: 24px;
 }
 
 .rules-game1 ul {
   list-style-type: none;
-  text-align: left;
+  text-align: center;
   padding: 0;
 }
 
 .rules-game1 ul li {
   margin: 5px 0;
-  font-size: 14px;
+  font-size: 20px;
 }
 
 .rules-game2 {
