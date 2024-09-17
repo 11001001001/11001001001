@@ -2,33 +2,33 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
 import walletImg from "./coins.png";
-import appsImg from "./exclamation.png";
+// import appsImg from "./exclamation.png";
 import badgeImg from "./badge.png";
 
 function Home() {
   const [balance, setBalance] = useState(0);
   const [level, setLevel] = useState(1);
-  const [usersCount, setUsersCount] = useState(0);
+  // const [usersCount, setUsersCount] = useState(0);
   const [displayText, setDisplayText] = useState('');
   const [isScrolling, setIsScrolling] = useState(false);
   const [timer, setTimer] = useState(0);
   const [showAnimation, setShowAnimation] = useState(false);
   const [animationValue, setAnimationValue] = useState(0);
   const [connected, setConnected] = useState(false);
-  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  // const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(true); // Для контроля загрузки
 
   const navigate = useNavigate();
-  const userId = window.Telegram.WebApp.initDataUnsafe.user.id.toString();
+  // const userId = window.Telegram.WebApp.initDataUnsafe.user.id.toString();
 
   const handleToggleButton = () => {
     navigate('/levelpage');
   };
 
-  const togglePopup = () => {
-    triggerHapticFeedback();
-    setIsPopupVisible(!isPopupVisible);
-  };
+  // const togglePopup = () => {
+  //   triggerHapticFeedback();
+  //   setIsPopupVisible(!isPopupVisible);
+  // };
 
   const getUserFirstName = window.Telegram.WebApp.initDataUnsafe.user.first_name;
   const getUserLastName = window.Telegram.WebApp.initDataUnsafe.user.last_name;
@@ -91,36 +91,36 @@ function Home() {
           const savedEndTime = result.endTime ? new Date(result.endTime) : null;
           const initialTimer = savedEndTime ? Math.max((savedEndTime - new Date()) / 1000, 0) : 0;
           const initialConnected = result.connected === 'true';
-          const getUsersCount = result.usersCount ? result.usersCount : 0;
+          // const getUsersCount = result.usersCount ? result.usersCount : 0;
 
           setBalance(initialBalance);
           setTimer(initialTimer);
           setConnected(initialConnected);
-          setUsersCount(getUsersCount)
+          // setUsersCount(getUsersCount)
           setLevel(initialLevel)
 
           setIsLoading(false); // Данные загружены, можно показывать элементы
         }
       });
     };
-    fetchPromoData(userId)
+    // fetchPromoData(userId)
     getInitialData();
   }, []);
 
-  const fetchPromoData = (userId) => {
-    fetch(`https://tapduck-3d49976b17d2.herokuapp.com/api/promo-count/${userId}`)
-      .then(response => response.json())
-      .then(data => {
-        const { promo_count } = data;
-        setUsersCount(promo_count);
-        window.Telegram.WebApp.CloudStorage.setItem('usersCount', promo_count, (error) => {
-          if (error) {
-            console.error('Failed to set promo in cloud storage:', error);
-          }
-        });
-      })
-      .catch(error => console.error('Failed to fetch promo data:', error));
-  };
+  // const fetchPromoData = (userId) => {
+  //   fetch(`https://tapduck-3d49976b17d2.herokuapp.com/api/promo-count/${userId}`)
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       const { promo_count } = data;
+  //       setUsersCount(promo_count);
+  //       window.Telegram.WebApp.CloudStorage.setItem('usersCount', promo_count, (error) => {
+  //         if (error) {
+  //           console.error('Failed to set promo in cloud storage:', error);
+  //         }
+  //       });
+  //     })
+  //     .catch(error => console.error('Failed to fetch promo data:', error));
+  // };
 
   useEffect(() => {
     if (timer > 0) {
@@ -203,7 +203,7 @@ function Home() {
   <span>Lv.{level}</span>
 </button>
 
-        <div className={`popup ${isPopupVisible ? 'visible' : ''}`}>
+        {/* <div className={`popup ${isPopupVisible ? 'visible' : ''}`}>
           <button className="close-button" onClick={handleToggleButton}>Close</button>
           <div className="popup-content">
             <h1>TapDuck</h1>
@@ -214,7 +214,7 @@ function Home() {
             <p>Stay active by inviting your friends to play. For each friend you’ll get extra coins</p>
             <p>We’ll make sure Tap Duck becomes valuable</p>
           </div>
-        </div>
+        </div> */}
 
         <div className="nickname-container">
           <img src={badgeImg} alt="Icon" className="nickname-icon" />
