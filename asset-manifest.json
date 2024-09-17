@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/11001001001/static/css/main.3bafcac4.css",
-    "main.js": "/11001001001/static/js/main.e16057d4.js",
+    "main.js": "/11001001001/static/js/main.550eb472.js",
     "static/media/chpic.su_-_UtyaDuckFull_025-ezgif.com-gif-maker.gif": "/11001001001/static/media/chpic.su_-_UtyaDuckFull_025-ezgif.com-gif-maker.4009ea52491375f0fdd4.gif",
     "static/media/chpic.su_-_UtyaDuckFull_002-ezgif.com-gif-maker.gif": "/11001001001/static/media/chpic.su_-_UtyaDuckFull_002-ezgif.com-gif-maker.a47b1132d1e0f997eca6.gif",
     "static/media/chpic.su_-_UtyaDuckFull_078-ezgif.com-gif-maker.gif": "/11001001001/static/media/chpic.su_-_UtyaDuckFull_078-ezgif.com-gif-maker.d95b634463766c2264a1.gif",
@@ -11,10 +11,10 @@
     "static/media/chpic.su_-_UtyaDuckFull_017-ezgif.com-gif-maker.gif": "/11001001001/static/media/chpic.su_-_UtyaDuckFull_017-ezgif.com-gif-maker.a32ea56e2d6c205aff5f.gif",
     "index.html": "/11001001001/index.html",
     "main.3bafcac4.css.map": "/11001001001/static/css/main.3bafcac4.css.map",
-    "main.e16057d4.js.map": "/11001001001/static/js/main.e16057d4.js.map"
+    "main.550eb472.js.map": "/11001001001/static/js/main.550eb472.js.map"
   },
   "entrypoints": [
     "static/css/main.3bafcac4.css",
-    "static/js/main.e16057d4.js"
+    "static/js/main.550eb472.js"
   ]
 }
