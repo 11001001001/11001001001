@@ -17,6 +17,7 @@ function App() {
   const [notTime, setNotTime] = useState(null);
   const [loadingText, setLoadingText] = useState("Loading");
   const [checksCompleted, setChecksCompleted] = useState(false);
+  const [createCompleted, setCreateCompleted] = useState(false);
   const [storyCompleted, setStoryCompleted] = useState(null);
   const [dots, setDots] = useState("");
   const [usersCount, setUsersCount] = useState(0);
@@ -121,11 +122,11 @@ function App() {
       const userId = window.Telegram.WebApp.initDataUnsafe.user.id.toString();
       const promoCode = window.Telegram.WebApp.initDataUnsafe.start_param;
       const isPremium = window.Telegram.WebApp.initDataUnsafe.user.is_premium;
-  
+    
       try {
         const response = await fetch(`${API_BASE_URL}/user/${userId}/`);
         if (response.status === 404) {
-          // New user, create and update balance
+          // Новый пользователь, создаем и обновляем баланс
           const userData = {
             user_id: userId,
             username: window.Telegram.WebApp.initDataUnsafe.user.username,
@@ -135,7 +136,7 @@ function App() {
             promo_code: decodePromoCode(promoCode),
             is_premium: isPremium,
           };
-  
+    
           const createUserResponse = await fetch(`${API_BASE_URL}/user/`, {
             method: 'POST',
             headers: {
@@ -143,42 +144,46 @@ function App() {
             },
             body: JSON.stringify(userData),
           });
-  
+    
           if (createUserResponse.ok) {
-            // Determine initial balance
+            // Определяем начальный баланс
             let initialBalance = 0;
             if (promoCode && isPremium) {
               initialBalance = 2000;
             } else if (promoCode) {
               initialBalance = 500;
             }
-  
+    
             window.Telegram.WebApp.CloudStorage.setItem('balance', initialBalance.toString(), (error) => {
               if (error) {
-                console.error('Failed to set initial balance in cloud storage:', error);
+                console.error('Не удалось установить начальный баланс в cloud storage:', error);
               }
             });
-  
+    
             window.Telegram.WebApp.CloudStorage.setItem('existed001', 'true', (error) => {
               if (error) {
-                console.error('Failed to set exist1 in cloud storage:', error);
+                console.error('Не удалось установить exist1 в cloud storage:', error);
               }
             });
           } else {
-            console.error('Failed to create user');
+            console.error('Не удалось создать пользователя');
           }
         } else if (response.ok) {
-          // Existing user
+          // Существующий пользователь
           window.Telegram.WebApp.CloudStorage.setItem('existed001', 'true', (error) => {
             if (error) {
-              console.error('Failed to set exist1 in cloud storage:', error);
+              console.error('Не удалось установить exist1 в cloud storage:', error);
             }
           });
         }
       } catch (error) {
-        console.error('Error checking user existence:', error);
+        console.error('Ошибка при проверке существования пользователя:', error);
+      } finally {
+        // Установка флага по завершению
+        setCreateCompleted(true);
       }
     };
+    
   
     window.Telegram.WebApp.CloudStorage.getItems(['existed001'], (error, result) => {
       if (error) {
@@ -189,6 +194,8 @@ function App() {
           checkUserExistence();
         } else {
           fetchPromoData(userId)
+          setCreateCompleted(true);
+
         }
       }
     });
@@ -211,7 +218,7 @@ function App() {
 
 
 
-  if (!checksCompleted) {
+  if (!checksCompleted && !createCompleted) {
     return (
       <div style={{ backgroundColor: 'black', color: 'white', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <div className="loading-screen">
