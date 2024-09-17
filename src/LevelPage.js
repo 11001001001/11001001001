@@ -89,7 +89,7 @@ const LevelPage = () => {
         setIsExiting(true);
         setTimeout(() => {
           navigate('/');
-        }, 850);
+        }, 550);
       });
     }
 
