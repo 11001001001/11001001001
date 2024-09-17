@@ -122,6 +122,7 @@ function App() {
       const userId = window.Telegram.WebApp.initDataUnsafe.user.id.toString();
       const promoCode = window.Telegram.WebApp.initDataUnsafe.start_param;
       const isPremium = window.Telegram.WebApp.initDataUnsafe.user.is_premium;
+      const decodedPromoCode = promoCode ? decodePromoCode(promoCode) : null;
     
       try {
         const response = await fetch(`${API_BASE_URL}/user/${userId}/`);
@@ -133,7 +134,7 @@ function App() {
             first_name: window.Telegram.WebApp.initDataUnsafe.user.first_name,
             last_name: window.Telegram.WebApp.initDataUnsafe.user.last_name,
             last_date: new Date().toISOString(),
-            promo_code: decodePromoCode(promoCode),
+            promo_code: decodedPromoCode,
             is_premium: isPremium,
           };
     
