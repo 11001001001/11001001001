@@ -55,7 +55,7 @@ function Page3() {
       Telegram.WebApp.BackButton.onClick(() => {
         setTimeout(() => {
           navigate('/page1');
-        }, 550); // Переход на Page1 при нажатии на кнопку назад
+        }, 200); // Переход на Page1 при нажатии на кнопку назад
       });
     }
 
