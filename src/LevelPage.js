@@ -83,23 +83,28 @@ const LevelPage = () => {
 
   useEffect(() => {
     const { Telegram } = window;
-    if (Telegram.WebApp) {
+    
+    if (Telegram?.WebApp) {
       Telegram.WebApp.BackButton.show();
-      Telegram.WebApp.BackButton.onClick(() => {
+      const handleBackClick = () => {
+        // Действие для конкретной страницы
         setIsExiting(true);
         setTimeout(() => {
           navigate('/');
         }, 850);
-      });
-    }
-
-    return () => {
-      if (Telegram.WebApp) {
-        Telegram.WebApp.BackButton.offClick();
+      };
+  
+      Telegram.WebApp.BackButton.onClick(handleBackClick);
+  
+      return () => {
+        Telegram.WebApp.BackButton.offClick(handleBackClick); // Отключаем именно этот обработчик
         Telegram.WebApp.BackButton.hide();
-      }
-    };
+      };
+    }
   }, [navigate]);
+  
+
+
 
   useEffect(() => {
     setTimeout(() => {

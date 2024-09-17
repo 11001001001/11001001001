@@ -98,22 +98,25 @@ const Page4 = () => {
         }
       };
 
-    useEffect(() => {
-    const { Telegram } = window;
-    if (Telegram.WebApp) {
-        Telegram.WebApp.BackButton.show();
-        Telegram.WebApp.BackButton.onClick(() => {
-        navigate('/page1'); // Переход на Page1 при нажатии на кнопку назад
-        });
-    }
-
-    return () => {
-        if (Telegram.WebApp) {
-        Telegram.WebApp.BackButton.offClick();
-        Telegram.WebApp.BackButton.hide();
+      useEffect(() => {
+        const { Telegram } = window;
+        
+        if (Telegram?.WebApp) {
+          Telegram.WebApp.BackButton.show();
+          const handleBackClick = () => {
+            // Действие для конкретной страницы
+            navigate('/page1');
+          };
+      
+          Telegram.WebApp.BackButton.onClick(handleBackClick);
+      
+          return () => {
+            Telegram.WebApp.BackButton.offClick(handleBackClick); // Отключаем именно этот обработчик
+            Telegram.WebApp.BackButton.hide();
+          };
         }
-    };
-    }, [navigate]);
+      }, [navigate]);
+      
 
     useEffect(() => {
         const intervalId = setInterval(() => {
